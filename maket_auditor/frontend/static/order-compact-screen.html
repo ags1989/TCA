@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заказ: итоговая форма (компактный вид)</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        .app-frame {
+            width: 100vw;
+            height: 100vh;
+            background: var(--mt-gray-lightest);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Exo 2', sans-serif;
+        }
+
+        .device {
+            width: 375px;
+            height: 812px;
+            background: var(--mt-white);
+            border-radius: 40px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .screen {
+            width: 100%;
+            height: 100%;
+            background: var(--mt-gray-lightest);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-bar {
+            height: 44px;
+            background: var(--mt-gray-darker);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            color: var(--mt-white);
+            font-size: 13px;
+            font-weight: 400;
+        }
+
+        .status-left {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-right {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-time {
+            font-size: 13px;
+            font-weight: 400;
+        }
+
+        .header-panel {
+            background: var(--mt-gray-lightest);
+            border-bottom: 2px solid var(--mt-gray-light);
+            padding: 8px 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .back-button {
+            width: 34px;
+            height: 34px;
+            background: var(--mt-white);
+            border: none;
+            border-radius: 17px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .back-icon {
+            width: 20px;
+            height: 20px;
+            color: var(--mt-primary);
+        }
+
+        .title-section {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .title-caption {
+            font-size: 12px;
+            color: var(--mt-primary);
+            font-weight: 400;
+        }
+
+        .title-main {
+            font-size: 16px;
+            color: var(--mt-black);
+            font-weight: 600;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-button {
+            width: 34px;
+            height: 34px;
+            background: var(--mt-white);
+            border: none;
+            border-radius: 17px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .action-icon {
+            width: 20px;
+            height: 20px;
+            color: var(--mt-primary);
+        }
+
+        .save-button {
+            padding: 6px 12px;
+            background: var(--mt-primary);
+            color: var(--mt-white);
+            border: none;
+            border-radius: 18px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0px 0px 4px 0px rgba(96, 35, 243, 0.5);
+        }
+
+        .content {
+            flex: 1;
+            background: var(--mt-gray-lightest);
+            overflow-y: auto;
+            padding-bottom: 80px;
+        }
+
+        .spoiler-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            border-bottom: 1px solid var(--mt-gray-light);
+        }
+
+        .spoiler-icon {
+            width: 20px;
+            height: 20px;
+            color: var(--mt-gray);
+        }
+
+        .spoiler-text {
+            font-size: 14px;
+            color: var(--mt-black);
+            font-weight: 400;
+        }
+
+        .spoiler-text.subtitle {
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .info-section {
+            background: var(--mt-white);
+            border: 1px solid var(--mt-gray-light);
+            margin: 0 16px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            border-bottom: 1px solid var(--mt-gray-light);
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-size: 14px;
+            color: var(--mt-black);
+            font-weight: 400;
+            width: 200px;
+        }
+
+        .info-value {
+            font-size: 14px;
+            color: var(--mt-black);
+            font-weight: 400;
+        }
+
+        .status-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            border-bottom: 1px solid var(--mt-gray-light);
+        }
+
+        .status-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .status-text {
+            flex: 1;
+            font-size: 16px;
+            color: var(--mt-black);
+            font-weight: 400;
+        }
+
+        .status-badge {
+            background: var(--mt-pink-light);
+            color: var(--mt-white);
+            border-radius: 12px;
+            padding: 0 6px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 600;
+            min-width: 20px;
+        }
+
+        .status-arrow {
+            width: 20px;
+            height: 20px;
+            color: var(--mt-gray);
+        }
+
+        .table-container {
+            margin: 16px;
+            background: var(--mt-white);
+            border: 1px solid var(--mt-gray-light);
+        }
+
+        .table-header {
+            display: flex;
+            background: var(--mt-white);
+        }
+
+        .table-cell {
+            padding: 8px 6px;
+            border-right: 1px solid var(--mt-gray-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: var(--mt-gray);
+            font-weight: 400;
+            text-align: center;
+        }
+
+        .table-cell:last-child {
+            border-right: none;
+        }
+
+        .table-cell.header {
+            background: var(--mt-white);
+            font-weight: 400;
+        }
+
+        .table-cell.quantity {
+            width: 50px;
+            min-width: 50px;
+        }
+
+        .table-cell.price {
+            width: 80px;
+            min-width: 80px;
+        }
+
+        .table-cell.discount-price {
+            width: 120px;
+            min-width: 120px;
+        }
+
+        .table-cell.discount {
+            width: 100px;
+            min-width: 100px;
+        }
+
+        .table-cell.total {
+            width: 100px;
+            min-width: 100px;
+        }
+
+        .table-cell.volume {
+            width: 80px;
+            min-width: 80px;
+        }
+
+        .table-row {
+            display: flex;
+            border-bottom: 1px solid var(--mt-gray-light);
+        }
+
+        .table-row:last-child {
+            border-bottom: none;
+        }
+
+        .table-row.group-header {
+            background: var(--mt-gray-lightest);
+            padding: 8px 16px;
+        }
+
+        .table-row.group-header .table-cell {
+            border: none;
+            padding: 0;
+            justify-content: flex-start;
+            font-size: 14px;
+            color: var(--mt-black);
+            font-weight: 400;
+        }
+
+        .table-row.item-name {
+            background: linear-gradient(90deg, rgba(228, 228, 228, 1) 85%, rgba(255, 255, 255, 1) 100%);
+            padding: 8px 16px;
+            display: block;
+        }
+
+        .table-row.item-name .table-cell {
+            border: none;
+            padding: 0;
+            justify-content: flex-start;
+            font-size: 12px;
+            color: var(--mt-gray-darker);
+            font-weight: 400;
+            width: 100%;
+            text-align: left;
+        }
+
+        .table-row.item {
+            background: var(--mt-white);
+        }
+
+        .table-row.item:nth-child(even) {
+            background: var(--mt-gray-lightest);
+        }
+
+        .table-row.subtotal {
+            background: var(--mt-gray-lightest);
+        }
+
+        .table-row.subtotal .table-cell {
+            background: var(--mt-gray-lightest);
+            font-weight: 400;
+        }
+
+        .table-row.total {
+            background: var(--mt-gray-light);
+        }
+
+        .table-row.total .table-cell {
+            background: var(--mt-gray-light);
+            font-weight: 600;
+        }
+
+        .product-name {
+            font-size: 14px;
+            color: var(--mt-black);
+            font-weight: 400;
+            text-align: left;
+        }
+
+        .price-text {
+            font-size: 11px;
+            color: var(--mt-black);
+            font-weight: 400;
+            text-align: right;
+        }
+
+        .discount-text {
+            font-size: 11px;
+            color: var(--mt-black);
+            font-weight: 400;
+            text-align: right;
+        }
+
+        .discount-percent {
+            font-size: 10px;
+            color: var(--mt-gray-darker);
+            font-weight: 400;
+        }
+
+        .total-text {
+            font-size: 11px;
+            color: var(--mt-black);
+            font-weight: 400;
+            text-align: right;
+        }
+
+        .total-text.bold {
+            font-weight: 600;
+        }
+
+        .legend-section {
+            padding: 8px 16px;
+            background: var(--mt-white);
+            border-top: 1px solid var(--mt-gray-light);
+        }
+
+        .legend-text {
+            font-size: 9px;
+            color: var(--mt-black);
+            font-weight: 400;
+            margin-bottom: 2px;
+        }
+
+        .legend-text.red {
+            color: var(--mt-red);
+        }
+
+        .discounts-section {
+            margin: 16px;
+            background: var(--mt-white);
+            border: 1px solid var(--mt-gray-light);
+        }
+
+        .discount-row {
+            display: flex;
+            border-bottom: 1px solid var(--mt-gray-light);
+        }
+
+        .discount-row:last-child {
+            border-bottom: none;
+        }
+
+        .discount-label {
+            flex: 1;
+            padding: 12px 6px;
+            font-size: 11px;
+            color: var(--mt-black);
+            font-weight: 400;
+        }
+
+        .discount-label.orange {
+            color: var(--mt-orange);
+        }
+
+        .discount-value {
+            width: 100px;
+            padding: 12px 6px;
+            font-size: 11px;
+            color: var(--mt-black);
+            font-weight: 400;
+            text-align: right;
+            border-right: 1px solid var(--mt-gray-light);
+        }
+
+        .discount-volume {
+            width: 80px;
+            padding: 12px 6px;
+            font-size: 11px;
+            color: var(--mt-black);
+            font-weight: 400;
+            text-align: center;
+        }
+
+        .final-total {
+            background: var(--mt-gray-light);
+            border-top: 1px solid var(--mt-gray-light);
+            padding: 8px 0;
+        }
+
+        .final-total-row {
+            display: flex;
+        }
+
+        .final-total-label {
+            width: 100px;
+            padding: 6px;
+            font-size: 11px;
+            color: var(--mt-black);
+            font-weight: 600;
+            text-align: center;
+            background: var(--mt-gray-light);
+        }
+
+        .final-total-value {
+            flex: 1;
+            padding: 6px;
+            font-size: 11px;
+            color: var(--mt-black);
+            font-weight: 600;
+            text-align: right;
+            background: var(--mt-gray-light);
+        }
+
+        .status-icon.green {
+            color: var(--mt-green);
+        }
+
+        .status-icon.yellow {
+            color: var(--mt-yellow);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-frame">
+        <div class="device">
+            <div class="screen">
+                <!-- Status Bar -->
+                <div class="status-bar">
+                    <div class="status-left">
+                        <div class="status-time">12:30</div>
+                    </div>
+                    <div class="status-right">
+                        <div class="status-time">100%</div>
+                    </div>
+                </div>
+
+                <!-- Header Panel -->
+                <div class="header-panel">
+                    <div class="header-left">
+                        <button class="back-button">
+                            <svg class="back-icon" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div class="title-section">
+                            <div class="title-caption">Изменить</div>
+                            <div class="title-main">Заказ</div>
+                        </div>
+                    </div>
+                    <div class="header-actions">
+                        <button class="action-button">
+                            <svg class="action-icon" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M18 2H2C1.45 2 1 2.45 1 3V17C1 17.55 1.45 18 2 18H18C18.55 18 19 17.55 19 17V3C19 2.45 18.55 2 18 2ZM17 16H3V4H17V16Z"/>
+                                <path d="M5 6H15V8H5V6ZM5 10H15V12H5V10ZM5 14H11V16H5V14Z"/>
+                            </svg>
+                        </button>
+                        <button class="action-button">
+                            <svg class="action-icon" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M4 4H16V6H4V4ZM4 8H16V10H4V8ZM4 12H16V14H4V12ZM4 16H12V18H4V16Z"/>
+                            </svg>
+                        </button>
+                        <button class="action-button">
+                            <svg class="action-icon" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M10 2C5.58 2 2 5.58 2 10C2 14.42 5.58 18 10 18C14.42 18 18 14.42 18 10C18 5.58 14.42 2 10 2ZM10 16C6.69 16 4 13.31 4 10C4 6.69 6.69 4 10 4C13.31 4 16 6.69 16 10C16 13.31 13.31 16 10 16Z"/>
+                                <circle cx="10" cy="10" r="2"/>
+                            </svg>
+                        </button>
+                        <button class="save-button">Сохранить</button>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="content">
+                    <!-- Order Info -->
+                    <div class="spoiler-section">
+                        <svg class="spoiler-icon" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M4 4H16V6H4V4ZM4 8H16V10H4V8ZM4 12H16V14H4V12ZM4 16H12V18H4V16Z"/>
+                        </svg>
+                        <div class="spoiler-text">Заказ от 01.01.2024</div>
+                    </div>
+
+                    <!-- Requisites -->
+                    <div class="spoiler-section">
+                        <svg class="spoiler-icon" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10 6L6 10L10 14L14 10L10 6Z"/>
+                        </svg>
+                        <div class="spoiler-text subtitle">Реквизиты</div>
+                    </div>
+
+                    <!-- Attributes -->
+                    <div class="spoiler-section">
+                        <svg class="spoiler-icon" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10 14L6 10L10 6L14 10L10 14Z"/>
+                        </svg>
+                        <div class="spoiler-text subtitle">Атрибуты</div>
+                    </div>
+
+                    <!-- Info Section -->
+                    <div class="info-section">
+                        <div class="info-row">
+                            <div class="info-label">Заказ под акцию</div>
+                            <div class="info-value">—</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Инкассация</div>
+                            <div class="info-value">НЕТ</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Счет-фактура</div>
+                            <div class="info-value">ДА</div>
+                        </div>
+                    </div>
+
+                    <!-- Status Rows -->
+                    <div class="status-row">
+                        <svg class="status-icon green" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10 2C5.58 2 2 5.58 2 10C2 14.42 5.58 18 10 18C14.42 18 18 14.42 18 10C18 5.58 14.42 2 10 2ZM8 15L4 11L5.41 9.59L8 12.17L14.59 5.58L16 7L8 15Z"/>
+                        </svg>
+                        <div class="status-text">Выполнены, надо распределить бонус</div>
+                        <div class="status-badge">1</div>
+                        <svg class="status-arrow" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M8 4L12 8L8 12"/>
+                        </svg>
+                    </div>
+
+                    <div class="status-row">
+                        <svg class="status-icon yellow" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10 2C5.58 2 2 5.58 2 10C2 14.42 5.58 18 10 18C14.42 18 18 14.42 18 10C18 5.58 14.42 2 10 2ZM8 15L4 11L5.41 9.59L8 12.17L14.59 5.58L16 7L8 15Z"/>
+                        </svg>
+                        <div class="status-text">Близкие к выполнению</div>
+                        <div class="status-badge">1</div>
+                        <svg class="status-arrow" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M8 4L12 8L8 12"/>
+                        </svg>
+                    </div>
+
+                    <!-- Table -->
+                    <div class="table-container">
+                        <!-- Table Header -->
+                        <div class="table-header">
+                            <div class="table-cell header quantity">Кол-во</div>
+                            <div class="table-cell header price">Цена (за ед.)</div>
+                            <div class="table-cell header discount-price">Цена (за ед. со скидкой)</div>
+                            <div class="table-cell header discount">Скидка (за ед.)</div>
+                            <div class="table-cell header total">Сумма со скидкой</div>
+                            <div class="table-cell header volume">Объем (Дкл)</div>
+                        </div>
+
+                        <!-- Group: Водка -->
+                        <div class="table-row group-header">
+                            <div class="table-cell">Группа: Водка</div>
+                        </div>
+
+                        <!-- Item 1 Name -->
+                        <div class="table-row item-name">
+                            <div class="table-cell">Водка Архангельская СВ 0,70</div>
+                        </div>
+
+                        <!-- Item 1 Data -->
+                        <div class="table-row item">
+                            <div class="table-cell quantity">
+                                <div class="price-text">5 бут</div>
+                            </div>
+                            <div class="table-cell price">
+                                <div class="price-text">500,50 ₽</div>
+                            </div>
+                            <div class="table-cell discount-price">
+                                <div class="price-text">400,40 ₽</div>
+                            </div>
+                            <div class="table-cell discount">
+                                <div class="discount-text">-100,10 ₽</div>
+                                <div class="discount-percent">-20%</div>
+                            </div>
+                            <div class="table-cell total">
+                                <div class="total-text">2 002,00 ₽</div>
+                            </div>
+                            <div class="table-cell volume">
+                                <div class="price-text">—</div>
+                            </div>
+                        </div>
+
+                        <!-- Item 2 Name -->
+                        <div class="table-row item-name">
+                            <div class="table-cell">Водка Архангельская СV 1,50</div>
+                        </div>
+
+                        <!-- Item 2 Data -->
+                        <div class="table-row item">
+                            <div class="table-cell quantity">
+                                <div class="price-text">5 бут</div>
+                            </div>
+                            <div class="table-cell price">
+                                <div class="price-text">1 155,50 ₽</div>
+                            </div>
+                            <div class="table-cell discount-price">
+                                <div class="price-text">*855,00 ₽</div>
+                            </div>
+                            <div class="table-cell discount">
+                                <div class="discount-text">-300,50 ₽</div>
+                                <div class="discount-percent">-26%</div>
+                            </div>
+                            <div class="table-cell total">
+                                <div class="total-text">4 275,00 ₽</div>
+                            </div>
+                            <div class="table-cell volume">
+                                <div class="price-text">—</div>
+                            </div>
+                        </div>
+
+                        <!-- Subtotal -->
+                        <div class="table-row subtotal">
+                            <div class="table-cell quantity">
+                                <div class="price-text">10 бут</div>
+                            </div>
+                            <div class="table-cell price">
+                                <div class="price-text"></div>
+                            </div>
+                            <div class="table-cell discount-price">
+                                <div class="price-text"></div>
+                            </div>
+                            <div class="table-cell discount">
+                                <div class="price-text"></div>
+                            </div>
+                            <div class="table-cell total">
+                                <div class="total-text">6 277,00 ₽</div>
+                            </div>
+                            <div class="table-cell volume">
+                                <div class="price-text">—</div>
+                            </div>
+                        </div>
+
+                        <!-- Group: Коньяк -->
+                        <div class="table-row group-header">
+                            <div class="table-cell">Группа: Коньяк</div>
+                        </div>
+
+                        <!-- Item 3 Name -->
+                        <div class="table-row item-name">
+                            <div class="table-cell">Коньяк Ардели 5 лет 0,25</div>
+                        </div>
+
+                        <!-- Item 3 Data -->
+                        <div class="table-row item">
+                            <div class="table-cell quantity">
+                                <div class="price-text">5 бут</div>
+                            </div>
+                            <div class="table-cell price">
+                                <div class="price-text">225,00 ₽</div>
+                            </div>
+                            <div class="table-cell discount-price">
+                                <div class="price-text">**225,00 ₽</div>
+                            </div>
+                            <div class="table-cell discount">
+                                <div class="discount-text">0,00 ₽ (-15,00 ₽)</div>
+                                <div class="discount-percent">-6,67%</div>
+                            </div>
+                            <div class="table-cell total">
+                                <div class="total-text">1 125,00 ₽</div>
+                            </div>
+                            <div class="table-cell volume">
+                                <div class="price-text">—</div>
+                            </div>
+                        </div>
+
+                        <!-- Subtotal -->
+                        <div class="table-row subtotal">
+                            <div class="table-cell quantity">
+                                <div class="price-text">5 бут</div>
+                            </div>
+                            <div class="table-cell price">
+                                <div class="price-text"></div>
+                            </div>
+                            <div class="table-cell discount-price">
+                                <div class="price-text"></div>
+                            </div>
+                            <div class="table-cell discount">
+                                <div class="price-text"></div>
+                            </div>
+                            <div class="table-cell total">
+                                <div class="total-text">1 125,00 ₽</div>
+                            </div>
+                            <div class="table-cell volume">
+                                <div class="price-text">—</div>
+                            </div>
+                        </div>
+
+                        <!-- Legend -->
+                        <div class="legend-section">
+                            <div class="legend-text">*фиксированная цена</div>
+                            <div class="legend-text red">**цена МРЦ</div>
+                        </div>
+
+                        <!-- Discounts Section -->
+                        <div class="discounts-section">
+                            <div class="discount-row">
+                                <div class="discount-label">Скидка по всем позициям</div>
+                                <div class="discount-value">2 003,00 ₽</div>
+                                <div class="discount-volume"></div>
+                            </div>
+                            <div class="discount-row">
+                                <div class="discount-label">Доп. скидка «к размытию» на документ</div>
+                                <div class="discount-value">645,00 ₽</div>
+                                <div class="discount-volume"></div>
+                            </div>
+                            <div class="discount-row">
+                                <div class="discount-label orange">Дозаказать до «размытия» остатка</div>
+                                <div class="discount-value">0,00 ₽</div>
+                                <div class="discount-volume"></div>
+                            </div>
+                        </div>
+
+                        <!-- Final Total -->
+                        <div class="final-total">
+                            <div class="final-total-row">
+                                <div class="final-total-label">ИТОГО<br>(3 поз)</div>
+                                <div class="final-total-value">7 402,00 ₽</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            console.log('Назад');
+        }
+
+        function saveOrder() {
+            console.log('Сохранить заказ');
+        }
+
+        function toggleComments() {
+            console.log('Комментарии');
+        }
+
+        function printOrder() {
+            console.log('Печать заказа');
+        }
+
+        function showMenu() {
+            console.log('Меню');
+        }
+
+        // Add event listeners
+        document.querySelector('.back-button').addEventListener('click', goBack);
+        document.querySelector('.save-button').addEventListener('click', saveOrder);
+        document.querySelectorAll('.action-button')[0].addEventListener('click', toggleComments);
+        document.querySelectorAll('.action-button')[1].addEventListener('click', printOrder);
+        document.querySelectorAll('.action-button')[2].addEventListener('click', showMenu);
+    </script>
+</body>
+</html>

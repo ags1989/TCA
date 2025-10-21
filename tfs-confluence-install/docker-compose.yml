@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  tfs-confluence-automation:
+    build: .
+    container_name: tfs-confluence-automation
+    ports:
+      - "8000:8000"
+    environment:
+      - TFS_URL=${TFS_URL}
+      - TFS_PAT=${TFS_PAT}
+      - TFS_PROJECT=${TFS_PROJECT}
+      - TFS_ORGANIZATION=${TFS_ORGANIZATION}
+      - CONFLUENCE_URL=${CONFLUENCE_URL}
+      - CONFLUENCE_USER=${CONFLUENCE_USER}
+      - CONFLUENCE_TOKEN=${CONFLUENCE_TOKEN}
+      - CONFLUENCE_SPACE=${CONFLUENCE_SPACE}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_MODEL=${OPENAI_MODEL}
+      - DEBUG=${DEBUG:-False}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    volumes:
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: Add a reverse proxy
+  nginx:
+    image: nginx:alpine
+    container_name: tfs-confluence-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - tfs-confluence-automation
+    restart: unless-stopped
+    profiles:
+      - production

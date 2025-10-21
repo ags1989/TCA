@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МТ 5 - Макеты</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 40px;
+        }
+        .mockups {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .mockup-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+        .mockup-card:hover {
+            transform: translateY(-5px);
+        }
+        .mockup-preview {
+            width: 100%;
+            height: 480px;
+            border: 2px solid #e0e0e0;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            background: #f9f9f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #666;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+        }
+        .mockup-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .mockup-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .mockup-link {
+            display: inline-block;
+            background: #966EF7;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.2s ease;
+        }
+        .mockup-link:hover {
+            background: #7B5AE8;
+        }
+        .features {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .features h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .features ul {
+            list-style: none;
+            padding: 0;
+        }
+        .features li {
+            padding: 8px 0;
+            color: #666;
+            position: relative;
+            padding-left: 25px;
+        }
+        .features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #32D669;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>МТ 5 - Интерактивные макеты</h1>
+        
+        <div class="mockups">
+            <div class="mockup-card">
+                <div class="mockup-preview">
+                    📱 Маршрут
+                </div>
+                <div class="mockup-title">Экран маршрута</div>
+                <div class="mockup-description">
+                    Полнофункциональный интерфейс управления маршрутами с интерактивными элементами, 
+                    переключателями видов и панелью действий.
+                </div>
+                <a href="route-screen.html" class="mockup-link">Открыть макет</a>
+            </div>
+            
+            <div class="mockup-card">
+                <div class="mockup-preview">
+                    📦 Заказы
+                </div>
+                <div class="mockup-title">Экран заказов</div>
+                <div class="mockup-description">
+                    Интерфейс для работы с заказами и управления товарными позициями.
+                </div>
+                <a href="order-screen.html" class="mockup-link">Открыть макет</a>
+            </div>
+            
+            <div class="mockup-card">
+                <div class="mockup-preview">
+                    📊 Таблица
+                </div>
+                <div class="mockup-title">Таблица товаров</div>
+                <div class="mockup-description">
+                    Детальная таблица с товарами, ценами, количеством и возможностью редактирования.
+                </div>
+                <a href="table-screen.html" class="mockup-link">Открыть макет</a>
+            </div>
+            
+            <div class="mockup-card">
+                <div class="mockup-preview">
+                    🏪 Карточка ТТ
+                </div>
+                <div class="mockup-title">Карточка торговой точки</div>
+                <div class="mockup-description">
+                    Детальная информация о торговой точке с разворачиваемыми секциями.
+                </div>
+                <a href="tt-card-screen.html" class="mockup-link">Открыть макет</a>
+            </div>
+            
+            <div class="mockup-card">
+                <div class="mockup-preview">
+                    🏪 Визиты
+                </div>
+                <div class="mockup-title">Экран визитов</div>
+                <div class="mockup-description">
+                    Интерфейс для планирования и проведения визитов к торговым точкам.
+                </div>
+                <a href="visit-screen.html" class="mockup-link">Открыть макет</a>
+            </div>
+            
+            <div class="mockup-card">
+                <div class="mockup-preview">
+                    🗺️ Карта
+                </div>
+                <div class="mockup-title">Карта и навигация</div>
+                <div class="mockup-description">
+                    Интерактивная карта с навигацией к торговым точкам и управлением маршрутами.
+                </div>
+                <a href="map-screen.html" class="mockup-link">Открыть макет</a>
+            </div>
+            
+            <div class="mockup-card">
+                <div class="mockup-preview">
+                    📋 Журнал
+                </div>
+                <div class="mockup-title">Журнал заказов</div>
+                <div class="mockup-description">
+                    Интерфейс журнала с разворачиваемыми секциями, карточками заказов и фильтрацией.
+                </div>
+                <a href="journal-screen.html" class="mockup-link">Открыть макет</a>
+            </div>
+            
+            <div class="mockup-card">
+                <div class="mockup-preview">
+                    📄 Просмотр заказа
+                </div>
+                <div class="mockup-title">Просмотр заказа</div>
+                <div class="mockup-description">
+                    Детальный просмотр заказа с реквизитами, атрибутами и таблицей товаров.
+                </div>
+                <a href="order-preview-screen.html" class="mockup-link">Открыть макет</a>
+            </div>
+        </div>
+        
+        <div class="features">
+            <h2>Особенности макетов</h2>
+            <ul>
+                <li>Полностью интерактивные элементы</li>
+                <li>Точное соответствие дизайну из Figma</li>
+                <li>Адаптивная верстка для мобильных устройств</li>
+                <li>CSS переменные для легкой кастомизации</li>
+                <li>Семантическая HTML разметка</li>
+                <li>Поддержка клавиатурной навигации</li>
+                <li>Современные CSS Grid и Flexbox</li>
+                <li>SVG иконки высокого качества</li>
+                <li>Плавные анимации и переходы</li>
+                <li>Готовность к интеграции с JavaScript</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

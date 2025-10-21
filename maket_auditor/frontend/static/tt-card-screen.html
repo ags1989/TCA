@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карточка торговой точки - МТ 5</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+    <div class="app-frame">
+      <div class="device">
+        <div class="screen">
+        <div class="tt-card-screen">
+            <!-- Status Bar -->
+            <div class="status-bar">
+                <div class="status-bar-content">
+                    <div class="status-indicators">
+                        <div class="wifi-icon"></div>
+                        <div class="reception-icon"></div>
+                        <div class="battery-icon"></div>
+                    </div>
+                    <div class="time">12:30</div>
+                </div>
+            </div>
+
+            <!-- Header -->
+            <div class="tt-header">
+                <div class="tt-header-content">
+                    <div class="header-left">
+                        <button class="back-btn" onclick="goBack()">
+                            <img src="images/close_icon.svg" alt="Назад">
+                        </button>
+                    </div>
+                    <h1 class="tt-title">Карточка торговой точки</h1>
+                    <div class="header-right">
+                        <button class="nav-btn" onclick="goToMap()">
+                            <img src="images/network_icon.svg" alt="Навигатор">
+                        </button>
+                        <span class="nav-label">Навигатор</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="tt-content">
+                <!-- Лимиты секция -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <button class="collapse-btn">
+                            <img src="images/arrow_down_icon.svg" alt="Свернуть">
+                        </button>
+                        <h2 class="section-title">Лимиты</h2>
+                    </div>
+                </div>
+
+                <!-- Общая информация секция -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <button class="collapse-btn">
+                            <img src="images/arrow_down_icon.svg" alt="Развернуть">
+                        </button>
+                        <h2 class="section-title">Общая информация</h2>
+                    </div>
+                    
+                    <div class="info-grid">
+                        <div class="info-row">
+                            <span class="info-label">Владелец</span>
+                            <span class="info-value">Агава ООО</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Вывеска</span>
+                            <span class="info-value">Мичелада</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Канал сбыта</span>
+                            <span class="info-value">4.2.1. мск-он-трейд</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Код ТТ</span>
+                            <span class="info-value">УТ0025005</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Полное название</span>
+                            <span class="info-value">Агава ООО</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Номер лицензии</span>
+                            <span class="info-value">77РПО0014418</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Дата лицензии</span>
+                            <span class="info-value">4 июля 2028</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Номер договора</span>
+                            <span class="info-value">М-502/19</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Дата договора</span>
+                            <span class="info-value">31 дек. 2024</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">ИНН клиента</span>
+                            <span class="info-value">9708041772</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">ТТ в стоп-листе</span>
+                            <span class="info-value">Нет</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Тип</span>
+                            <span class="info-value">Бар</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Заказ аудитора секция -->
+                <div class="section-card expanded">
+                    <div class="section-header">
+                        <button class="collapse-btn expanded">
+                            <img src="images/arrow_down_icon.svg" alt="Развернуть">
+                        </button>
+                        <h2 class="section-title">Заказ аудитора</h2>
+                    </div>
+                    
+                    <div class="info-grid">
+                        <div class="info-row">
+                            <span class="info-label">№ заказа</span>
+                            <span class="info-value">0056867848</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Дата заказа</span>
+                            <span class="info-value">29.09.2025</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Сумма заказа</span>
+                            <span class="info-value">7402,00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Фотографии точки секция -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <button class="collapse-btn">
+                            <img src="images/arrow_down_icon.svg" alt="Свернуть">
+                        </button>
+                        <h2 class="section-title">Фотографии точки</h2>
+                    </div>
+                </div>
+
+                <!-- Календарь визитов секция -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <button class="collapse-btn">
+                            <img src="images/arrow_down_icon.svg" alt="Свернуть">
+                        </button>
+                        <h2 class="section-title">Календарь визитов</h2>
+                    </div>
+                </div>
+
+                <!-- Последние визиты секция -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <button class="collapse-btn">
+                            <img src="images/arrow_down_icon.svg" alt="Свернуть">
+                        </button>
+                        <h2 class="section-title">Последние визиты</h2>
+                    </div>
+                </div>
+
+                <!-- Сопоставленные точки секция -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <button class="collapse-btn">
+                            <img src="images/arrow_down_icon.svg" alt="Свернуть">
+                        </button>
+                        <h2 class="section-title">Сопоставленные точки</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+        <script>
+            function goBack() {
+                // Навигация назад
+                window.history.back();
+            }
+            
+            function goToMap() {
+                // Навигация к карте
+                window.location.href = 'map-screen.html';
+            }
+
+        // Обработчики для кнопок сворачивания/разворачивания секций
+        document.addEventListener('DOMContentLoaded', function() {
+            const collapseBtns = document.querySelectorAll('.collapse-btn');
+            
+            collapseBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const sectionCard = this.closest('.section-card');
+                    const isExpanded = this.classList.contains('expanded');
+                    
+                    if (isExpanded) {
+                        this.classList.remove('expanded');
+                        sectionCard.classList.remove('expanded');
+                        this.querySelector('img').style.transform = 'rotate(0deg)';
+                    } else {
+                        this.classList.add('expanded');
+                        sectionCard.classList.add('expanded');
+                        this.querySelector('img').style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STMobile - Визит</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        .mobile-container {
+            width: 375px;
+            height: 812px;
+            margin: 0 auto;
+            background-color: var(--color-background);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-large);
+            position: relative;
+        }
+        
+        .visit-screen {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .visit-header {
+            background-color: var(--color-background);
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        .visit-header__nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .visit-header__back {
+            width: 24px;
+            height: 24px;
+            background: none;
+            border: none;
+            color: var(--color-text-primary);
+            cursor: pointer;
+        }
+        
+        .visit-header__title {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text-primary);
+        }
+        
+        .visit-header__menu {
+            width: 24px;
+            height: 24px;
+            background: none;
+            border: none;
+            color: var(--color-text-primary);
+            cursor: pointer;
+        }
+        
+        .visit-content {
+            flex: 1;
+            background-color: var(--color-background-light);
+            padding: var(--spacing-md);
+        }
+        
+        .visit-location {
+            background-color: var(--color-background-card);
+            border-radius: var(--radius-medium);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            box-shadow: var(--shadow-small);
+        }
+        
+        .visit-location__name {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text-primary);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .visit-location__address {
+            color: var(--color-text-secondary);
+            font-size: var(--font-size-md);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .visit-location__status {
+            color: var(--color-success);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .end-visit-section {
+            background-color: var(--color-background-card);
+            border-radius: var(--radius-medium);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            box-shadow: var(--shadow-small);
+            text-align: center;
+        }
+        
+        .end-visit-icon {
+            width: 48px;
+            height: 48px;
+            background-color: var(--color-accent);
+            border-radius: 50%;
+            margin: 0 auto var(--spacing-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .end-visit-icon::before {
+            content: '';
+            width: 24px;
+            height: 24px;
+            background-color: var(--color-text-white);
+            border-radius: 50%;
+        }
+        
+        .end-visit-icon::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: var(--color-accent);
+            border-radius: 50%;
+        }
+        
+        .end-visit-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text-primary);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .end-visit-subtitle {
+            color: var(--color-text-secondary);
+            font-size: var(--font-size-sm);
+        }
+        
+        .info-section {
+            background-color: var(--color-background-card);
+            border-radius: var(--radius-medium);
+            margin-bottom: var(--spacing-lg);
+            box-shadow: var(--shadow-small);
+        }
+        
+        .info-section__header {
+            padding: var(--spacing-lg);
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        .info-section__title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text-primary);
+        }
+        
+        .info-item {
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .info-item__left {
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-item__icon {
+            width: 20px;
+            height: 20px;
+            margin-right: var(--spacing-md);
+            color: var(--color-text-muted);
+        }
+        
+        .info-item__text {
+            font-size: var(--font-size-md);
+            color: var(--color-text-primary);
+        }
+        
+        .info-item__right {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .info-item__badge {
+            background-color: var(--color-danger);
+            color: var(--color-text-white);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            padding: 2px 6px;
+            border-radius: var(--radius-round);
+            min-width: 16px;
+            text-align: center;
+        }
+        
+        .info-item__value {
+            color: var(--color-accent);
+            font-size: var(--font-size-md);
+            font-weight: var(--font-weight-semibold);
+        }
+        
+        .info-item__status {
+            color: var(--color-text-muted);
+            font-size: var(--font-size-sm);
+        }
+        
+        .tasks-section {
+            background-color: var(--color-background-card);
+            border-radius: var(--radius-medium);
+            margin-bottom: var(--spacing-lg);
+            box-shadow: var(--shadow-small);
+        }
+        
+        .tasks-section__header {
+            padding: var(--spacing-lg);
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        .tasks-section__title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text-primary);
+        }
+        
+        .task-item {
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color var(--transition-fast);
+        }
+        
+        .task-item:hover {
+            background-color: var(--color-background-light);
+        }
+        
+        .task-item:last-child {
+            border-bottom: none;
+        }
+        
+        .task-item__icon {
+            width: 24px;
+            height: 24px;
+            margin-right: var(--spacing-md);
+            color: var(--color-text-muted);
+        }
+        
+        .task-item__text {
+            font-size: var(--font-size-md);
+            color: var(--color-text-primary);
+        }
+        
+        .bottom-navigation {
+            background-color: var(--color-background-card);
+            border-top: 1px solid var(--color-border);
+            display: flex;
+            height: 60px;
+        }
+        
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--color-text-secondary);
+            transition: color var(--transition-fast);
+            position: relative;
+        }
+        
+        .nav-item.active {
+            color: var(--color-primary);
+        }
+        
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 2px;
+            background-color: var(--color-primary);
+        }
+        
+        .nav-item__icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .nav-item__text {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-medium);
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        <div class="visit-screen">
+            <!-- Статус бар -->
+            <div class="status-bar">
+                <div class="status-bar__time">12:30</div>
+                <div class="status-bar__indicators">
+                    <div class="status-bar__wifi">📶</div>
+                    <div class="status-bar__signal">📶</div>
+                    <div class="status-bar__battery">🔋</div>
+                </div>
+            </div>
+            
+            <!-- Заголовок визита -->
+            <div class="visit-header">
+                <div class="visit-header__nav">
+                    <button class="visit-header__back">←</button>
+                    <h1 class="visit-header__title">Визит ↑</h1>
+                    <button class="visit-header__menu">⋮</button>
+                </div>
+            </div>
+            
+            <!-- Основной контент -->
+            <div class="visit-content">
+                <!-- Информация о торговой точке -->
+                <div class="visit-location">
+                    <h2 class="visit-location__name">Мега Сити</h2>
+                    <p class="visit-location__address">г. Бишкек, Орто-Сайский р-к, 122К, центральный проход</p>
+                    <p class="visit-location__status">Активная</p>
+                </div>
+                
+                <!-- Завершение визита -->
+                <div class="end-visit-section">
+                    <div class="end-visit-icon"></div>
+                    <h3 class="end-visit-title">Закончить визит</h3>
+                    <p class="end-visit-subtitle">Основной сценарий</p>
+                </div>
+                
+                <!-- Информация -->
+                <div class="info-section">
+                    <div class="info-section__header">
+                        <h3 class="info-section__title">Информация</h3>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-item__left">
+                            <span class="info-item__icon">🔔</span>
+                            <span class="info-item__text">Напоминания</span>
+                        </div>
+                        <div class="info-item__right">
+                            <span class="info-item__badge">0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-item__left">
+                            <span class="info-item__icon">ℹ️</span>
+                            <span class="info-item__text">Карточка ТТ</span>
+                        </div>
+                        <div class="info-item__right">
+                            <span class="info-item__value">Долг: 1 612 468,90</span>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-item__left">
+                            <span class="info-item__icon">📍</span>
+                            <span class="info-item__text">Карта</span>
+                        </div>
+                        <div class="info-item__right">
+                            <span class="info-item__status">Нет связи GPS</span>
+                            <span class="info-item__icon">⚙️</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Задачи в ТТ -->
+                <div class="tasks-section">
+                    <div class="tasks-section__header">
+                        <h3 class="tasks-section__title">Задачи в ТТ</h3>
+                    </div>
+                    
+                    <div class="task-item">
+                        <span class="task-item__icon">⭐</span>
+                        <span class="task-item__text">Бонус</span>
+                    </div>
+                    
+                    <div class="task-item">
+                        <span class="task-item__icon">🛒</span>
+                        <span class="task-item__text">Заказ</span>
+                    </div>
+                    
+                    <div class="task-item">
+                        <span class="task-item__icon">📋</span>
+                        <span class="task-item__text">Мерчандайзинг</span>
+                    </div>
+                    
+                    <div class="task-item">
+                        <span class="task-item__icon">🛒</span>
+                        <span class="task-item__text">Заказ и мерч.</span>
+                    </div>
+                    
+                    <div class="task-item">
+                        <span class="task-item__icon">🔒</span>
+                        <span class="task-item__text">ПКО</span>
+                    </div>
+                    
+                    <div class="task-item">
+                        <span class="task-item__icon">↩️</span>
+                        <span class="task-item__text">Возврат</span>
+                    </div>
+                    
+                    <div class="task-item">
+                        <span class="task-item__icon">📊</span>
+                        <span class="task-item__text">POSM</span>
+                    </div>
+                    
+                    <div class="task-item">
+                        <span class="task-item__icon">📷</span>
+                        <span class="task-item__text">Фотоотчет</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Нижняя навигация -->
+            <div class="bottom-navigation">
+                <a href="#" class="nav-item active">
+                    <span class="nav-item__icon">🏠</span>
+                    <span class="nav-item__text">Визит</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-item__icon">📋</span>
+                    <span class="nav-item__text">Журнал</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <span class="nav-item__icon">📊</span>
+                    <span class="nav-item__text">Отчеты</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

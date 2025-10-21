@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STMobile - Заказ</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        .mobile-container {
+            width: 375px;
+            height: 812px;
+            margin: 0 auto;
+            background-color: var(--color-background);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-large);
+            position: relative;
+        }
+        
+        .order-screen {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .order-header {
+            background-color: var(--color-primary);
+            color: var(--color-text-white);
+            padding: var(--spacing-md);
+        }
+        
+        .order-header__nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .order-header__back {
+            width: 24px;
+            height: 24px;
+            background: none;
+            border: none;
+            color: var(--color-text-white);
+            cursor: pointer;
+        }
+        
+        .order-header__title {
+            font-size: var(--font-size-xxl);
+            font-weight: var(--font-weight-semibold);
+        }
+        
+        .order-header__actions {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .order-header__btn {
+            width: 28px;
+            height: 28px;
+            background: none;
+            border: none;
+            color: var(--color-text-white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-small);
+        }
+        
+        .order-header__btn--primary {
+            background-color: var(--color-secondary);
+            color: var(--color-text-white);
+            border-radius: var(--radius-round);
+            padding: var(--spacing-sm) var(--spacing-md);
+            width: auto;
+            height: auto;
+            font-weight: var(--font-weight-semibold);
+        }
+        
+        .order-info {
+            background-color: var(--color-background-card);
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        .order-info__client {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text-primary);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .order-info__btn {
+            background: none;
+            border: none;
+            color: var(--color-primary);
+            font-size: var(--font-size-sm);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        
+        .filter-panel {
+            background-color: var(--color-background-card);
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        .filter-panel__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .filter-panel__title {
+            font-size: var(--font-size-md);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text-primary);
+        }
+        
+        .filter-panel__actions {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .filter-panel__btn {
+            width: 28px;
+            height: 28px;
+            background: none;
+            border: none;
+            color: var(--color-text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-small);
+        }
+        
+        .filter-panel__btn--primary {
+            background-color: var(--color-primary);
+            color: var(--color-text-white);
+            border-radius: var(--radius-round);
+            padding: var(--spacing-sm) var(--spacing-md);
+            width: auto;
+            height: auto;
+            font-weight: var(--font-weight-semibold);
+        }
+        
+        .filter-tabs {
+            display: flex;
+            gap: var(--spacing-sm);
+            overflow-x: auto;
+            padding-bottom: var(--spacing-xs);
+        }
+        
+        .filter-tab {
+            padding: var(--spacing-xs) var(--spacing-md);
+            background-color: var(--color-background-light);
+            color: var(--color-text-secondary);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            text-decoration: none;
+            border-radius: var(--radius-round);
+            white-space: nowrap;
+            transition: all var(--transition-fast);
+        }
+        
+        .filter-tab.active {
+            background-color: var(--color-primary);
+            color: var(--color-text-white);
+        }
+        
+        .products-container {
+            flex: 1;
+            overflow-y: auto;
+            background-color: var(--color-background);
+        }
+        
+        .category-section {
+            background-color: var(--color-background-card);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .category-header {
+            background-color: var(--color-background-light);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        .category-title {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text-primary);
+        }
+        
+        .product-item {
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            transition: background-color var(--transition-fast);
+        }
+        
+        .product-item:hover {
+            background-color: var(--color-background-light);
+        }
+        
+        .product-item:last-child {
+            border-bottom: none;
+        }
+        
+        .product-checkbox {
+            flex-shrink: 0;
+        }
+        
+        .product-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .product-name {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-normal);
+            color: var(--color-text-primary);
+            line-height: var(--line-height-tight);
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .product-details {
+            font-size: var(--font-size-xs);
+            color: var(--color-text-secondary);
+        }
+        
+        .product-stock {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            text-align: right;
+            min-width: 60px;
+        }
+        
+        .product-recommended {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            text-align: right;
+            min-width: 60px;
+        }
+        
+        .product-quantity {
+            font-size: var(--font-size-sm);
+            color: var(--color-primary);
+            text-align: right;
+            min-width: 60px;
+        }
+        
+        .product-price {
+            font-size: var(--font-size-sm);
+            color: var(--color-primary);
+            text-align: right;
+            min-width: 60px;
+        }
+        
+        .product-amount {
+            font-size: var(--font-size-sm);
+            color: var(--color-primary);
+            text-align: right;
+            min-width: 60px;
+        }
+        
+        .product-weight {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            text-align: right;
+            min-width: 60px;
+        }
+        
+        .product-type {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            text-align: right;
+            min-width: 60px;
+        }
+        
+        .product-discount {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            text-align: right;
+            min-width: 60px;
+        }
+        
+        .product-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .product-action-btn {
+            width: 24px;
+            height: 24px;
+            background: none;
+            border: none;
+            color: var(--color-text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-small);
+        }
+        
+        .product-action-btn--photo {
+            color: var(--color-primary);
+        }
+        
+        .product-action-btn--gear {
+            color: var(--color-success);
+        }
+        
+        .bottom-panel {
+            background-color: var(--color-background-card);
+            border-top: 1px solid var(--color-border);
+            padding: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .bottom-panel__total {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+        }
+        
+        .bottom-panel__label {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+        }
+        
+        .bottom-panel__value {
+            font-size: var(--font-size-md);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text-primary);
+        }
+        
+        .bottom-panel__actions {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .bottom-panel__btn {
+            width: 20px;
+            height: 20px;
+            background: none;
+            border: none;
+            color: var(--color-text-muted);
+            cursor: pointer;
+        }
+        
+        .promotion-badge {
+            background-color: var(--color-primary);
+            color: var(--color-text-white);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            padding: 2px 6px;
+            border-radius: var(--radius-round);
+            margin-left: var(--spacing-sm);
+        }
+        
+        .promotion-count {
+            background-color: var(--color-danger);
+            color: var(--color-text-white);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            padding: 2px 6px;
+            border-radius: var(--radius-round);
+            min-width: 16px;
+            text-align: center;
+            margin-left: var(--spacing-sm);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-frame">
+      <div class="device">
+        <div class="screen">
+        <div class="order-screen">
+            <!-- Статус бар -->
+            <div class="status-bar">
+                <div class="status-bar__time">12:30</div>
+                <div class="status-bar__indicators">
+                    <div class="status-bar__wifi">📶</div>
+                    <div class="status-bar__signal">📶</div>
+                    <div class="status-bar__battery">🔋</div>
+                </div>
+            </div>
+            
+            <!-- Заголовок заказа -->
+            <div class="order-header">
+                <div class="order-header__nav">
+                    <button class="order-header__back">←</button>
+                    <h1 class="order-header__title">Заказ</h1>
+                    <div class="order-header__actions">
+                        <button class="order-header__btn">⋮</button>
+                        <button class="order-header__btn order-header__btn--primary">Далее →</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Информация о заказе -->
+            <div class="order-info">
+                <div class="order-info__client">Мега Сити</div>
+                <button class="order-info__btn">Реквизиты документа</button>
+            </div>
+            
+            <!-- Панель фильтров -->
+            <div class="filter-panel">
+                <div class="filter-panel__header">
+                    <h2 class="filter-panel__title">Фильтр: Товары в наличии</h2>
+                    <div class="filter-panel__actions">
+                        <button class="filter-panel__btn">🔍</button>
+                        <button class="filter-panel__btn">🔍</button>
+                        <button class="filter-panel__btn">⋮</button>
+                        <button class="filter-panel__btn filter-panel__btn--primary">→</button>
+                    </div>
+                </div>
+                
+                <div class="filter-tabs">
+                    <a href="#" class="filter-tab">Остаток</a>
+                    <a href="#" class="filter-tab">Рек.кол.</a>
+                    <a href="#" class="filter-tab">Кол.</a>
+                    <a href="#" class="filter-tab active">Акции 1</a>
+                    <a href="#" class="filter-tab">Цена</a>
+                    <a href="#" class="filter-tab">Сумма</a>
+                    <a href="#" class="filter-tab">Вес</a>
+                    <a href="#" class="filter-tab">Тип цены</a>
+                    <a href="#" class="filter-tab">Бонус скидка (%)</a>
+                </div>
+            </div>
+            
+            <!-- Список товаров -->
+            <div class="products-container">
+                <!-- Категория: Пиво бутылочное -->
+                <div class="category-section">
+                    <div class="category-header">
+                        <h3 class="category-title">01. Алкогольные напитки > 01.02. Слабоалкогольные напитки > 01.02.05. Пиво бутылочное</h3>
+                    </div>
+                    
+                    <div class="product-item">
+                        <div class="product-checkbox">
+                            <input type="checkbox" class="checkbox__input" id="product1">
+                            <label for="product1" class="checkbox__checkmark"></label>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Пив.нап. БЛТ Kronenbourg 1664 Blanc 0.46л ст/б</div>
+                        </div>
+                        <div class="product-stock">73 909 шт</div>
+                        <div class="product-recommended">0 шт</div>
+                        <div class="product-quantity">0 шт</div>
+                        <div class="product-actions">
+                            <button class="product-action-btn product-action-btn--gear">⚙️</button>
+                        </div>
+                        <div class="product-price">104,00</div>
+                        <div class="product-amount">0,00</div>
+                        <div class="product-weight">0,000</div>
+                        <div class="product-type">Основной ...</div>
+                        <div class="product-discount"></div>
+                    </div>
+                    
+                    <div class="product-item">
+                        <div class="product-checkbox">
+                            <input type="checkbox" class="checkbox__input" id="product2">
+                            <label for="product2" class="checkbox__checkmark"></label>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Пиво Grimbergen Blonde 0,33л ст/б</div>
+                        </div>
+                        <div class="product-stock">2 шт</div>
+                        <div class="product-recommended">0 шт</div>
+                        <div class="product-quantity">0 шт</div>
+                        <div class="product-actions">
+                            <button class="product-action-btn product-action-btn--gear">⚙️</button>
+                        </div>
+                        <div class="product-price">158,00</div>
+                        <div class="product-amount">0,00</div>
+                        <div class="product-weight">0,000</div>
+                        <div class="product-type">Основной ...</div>
+                        <div class="product-discount"></div>
+                    </div>
+                    
+                    <div class="product-item">
+                        <div class="product-checkbox">
+                            <input type="checkbox" class="checkbox__input" id="product3">
+                            <label for="product3" class="checkbox__checkmark"></label>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Пиво Holsten Light 0,5л ст/б</div>
+                        </div>
+                        <div class="product-stock">12 711 шт</div>
+                        <div class="product-recommended">0 шт</div>
+                        <div class="product-quantity">0 шт</div>
+                        <div class="product-actions">
+                            <button class="product-action-btn product-action-btn--gear">⚙️</button>
+                        </div>
+                        <div class="product-price">101,00</div>
+                        <div class="product-amount">0,00</div>
+                        <div class="product-weight">0,000</div>
+                        <div class="product-type">Основной ...</div>
+                        <div class="product-discount"></div>
+                    </div>
+                </div>
+                
+                <!-- Категория: Пиво баночное -->
+                <div class="category-section">
+                    <div class="category-header">
+                        <h3 class="category-title">01. Алкогольные напитки > 01.02. Слабоалкогольные напитки > 01.02.06. Пиво баночное</h3>
+                    </div>
+                    
+                    <div class="product-item">
+                        <div class="product-checkbox">
+                            <input type="checkbox" class="checkbox__input" id="product4">
+                            <label for="product4" class="checkbox__checkmark"></label>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Пиво Carlsberg 0.43л ж/б</div>
+                        </div>
+                        <div class="product-stock">36 730 шт</div>
+                        <div class="product-recommended">0 шт</div>
+                        <div class="product-quantity">0 шт</div>
+                        <div class="product-actions">
+                            <button class="product-action-btn product-action-btn--gear">⚙️</button>
+                        </div>
+                        <div class="product-price">101,00</div>
+                        <div class="product-amount">0,00</div>
+                        <div class="product-weight">0,000</div>
+                        <div class="product-type">Основной ...</div>
+                        <div class="product-discount"></div>
+                    </div>
+                    
+                    <div class="product-item">
+                        <div class="product-checkbox">
+                            <input type="checkbox" class="checkbox__input" id="product5">
+                            <label for="product5" class="checkbox__checkmark"></label>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Пиво Kronenbourg 1664 Blanc 0.43л ж/б</div>
+                        </div>
+                        <div class="product-stock">90 564 шт</div>
+                        <div class="product-recommended">0 шт</div>
+                        <div class="product-quantity">0 шт</div>
+                        <div class="product-actions">
+                            <button class="product-action-btn product-action-btn--gear">⚙️</button>
+                        </div>
+                        <div class="product-price">96,00</div>
+                        <div class="product-amount">0,00</div>
+                        <div class="product-weight">0,000</div>
+                        <div class="product-type">Основной ...</div>
+                        <div class="product-discount"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Нижняя панель -->
+            <div class="bottom-panel">
+                <div class="bottom-panel__total">
+                    <div class="bottom-panel__label">Итого</div>
+                    <div class="bottom-panel__value">0,00 • 0 позиции(й)</div>
+                </div>
+                <div class="bottom-panel__actions">
+                    <button class="bottom-panel__btn">↑</button>
+                    <button class="bottom-panel__btn">🎯</button>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+        function goToNext() {
+            // Навигация к экрану таблицы товаров
+            window.location.href = 'table-screen.html';
+        }
+
+        // Добавляем обработчик для кнопки "Далее"
+        document.addEventListener('DOMContentLoaded', function() {
+            const nextBtn = document.querySelector('.order-header__btn--primary');
+            if (nextBtn) {
+                nextBtn.addEventListener('click', goToNext);
+            }
+        });
+    </script>
+</body>
+</html>

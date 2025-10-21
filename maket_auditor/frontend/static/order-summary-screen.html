@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Итоговый заказ - МТ 5</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        .app-frame {
+            width: 100vw;
+            height: 100vh;
+            background: var(--mt-gray-lightest);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Exo 2', sans-serif;
+        }
+
+        .device {
+            width: 375px;
+            height: 812px;
+            background: var(--mt-white);
+            border-radius: 40px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .screen {
+            width: 100%;
+            height: 100%;
+            background: var(--mt-gray-lightest);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .table-screen {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .status-bar {
+            height: 44px;
+            background: var(--mt-gray-darker);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--mt-white);
+            font-size: 13px;
+            font-weight: 400;
+        }
+
+        .status-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .status-indicators {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .wifi-icon, .reception-icon, .battery-icon {
+            width: 16px;
+            height: 12px;
+            background: var(--mt-white);
+            border-radius: 2px;
+        }
+
+        .time {
+            font-size: 13px;
+            font-weight: 400;
+        }
+
+        .header {
+            background: var(--mt-gray-lightest);
+            border-bottom: 2px solid var(--mt-gray-light);
+            padding: 8px 6px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .back-btn {
+            width: 34px;
+            height: 34px;
+            background: var(--mt-white);
+            border: none;
+            border-radius: 17px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .back-btn img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .header h1 {
+            font-size: 14px;
+            color: var(--mt-black);
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .expand-btn, .menu-btn, .search-btn, .filter-btn {
+            width: 34px;
+            height: 34px;
+            background: var(--mt-white);
+            border: none;
+            border-radius: 17px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .expand-btn img, .menu-btn img, .search-btn img, .filter-btn img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .header-next-btn {
+            display: flex;
+            justify-content: center;
+        }
+
+        .next-btn-header {
+            padding: 6px 12px;
+            background: var(--mt-primary);
+            color: var(--mt-white);
+            border: none;
+            border-radius: 18px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0px 0px 4px 0px rgba(96, 35, 243, 0.5);
+        }
+
+        .table-container {
+            flex: 1;
+            background: var(--mt-white);
+            margin: 16px;
+            border: 1px solid var(--mt-gray-light);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .table-header {
+            background: var(--mt-gray-lightest);
+            border-bottom: 1px solid var(--mt-gray-light);
+        }
+
+        .table-header-row {
+            display: flex;
+        }
+
+        .header-cell {
+            flex: 1;
+            padding: 12px 8px;
+            font-size: 10px;
+            color: var(--mt-gray);
+            font-weight: 400;
+            text-align: center;
+            border-right: 1px solid var(--mt-gray-light);
+        }
+
+        .header-cell:last-child {
+            border-right: none;
+        }
+
+        .table-body {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .category-section {
+            border-bottom: 1px solid var(--mt-gray-light);
+        }
+
+        .category-header {
+            background: var(--mt-gray-lightest);
+            padding: 8px 16px;
+            border-bottom: 1px solid var(--mt-gray-light);
+        }
+
+        .category-title {
+            font-size: 12px;
+            color: var(--mt-black);
+            font-weight: 600;
+        }
+
+        .table-row {
+            display: flex;
+            border-bottom: 1px solid var(--mt-gray-light);
+            min-height: 60px;
+        }
+
+        .table-row:last-child {
+            border-bottom: none;
+        }
+
+        .product-cell {
+            flex: 2;
+            padding: 12px 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .product-name {
+            font-size: 12px;
+            color: var(--mt-black);
+            font-weight: 400;
+            line-height: 1.3;
+        }
+
+        .quantity-cell {
+            flex: 1;
+            padding: 12px 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: var(--mt-gray);
+        }
+
+        .price-cell {
+            flex: 1;
+            padding: 12px 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: var(--mt-gray);
+        }
+
+        .quantity-input-cell {
+            flex: 1;
+            padding: 12px 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: var(--mt-black);
+            font-weight: 500;
+        }
+
+        .action-cell {
+            flex: 0.5;
+            padding: 12px 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photo-btn {
+            width: 24px;
+            height: 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photo-btn img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .summary-section {
+            background: var(--mt-white);
+            margin: 16px;
+            border: 1px solid var(--mt-gray-light);
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .summary-title {
+            font-size: 14px;
+            color: var(--mt-black);
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--mt-gray-light);
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--mt-primary);
+        }
+
+        .summary-label {
+            font-size: 12px;
+            color: var(--mt-black);
+        }
+
+        .summary-value {
+            font-size: 12px;
+            color: var(--mt-black);
+            font-weight: 500;
+        }
+
+        .total-section {
+            background: var(--mt-primary);
+            margin: 16px;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .total-title {
+            font-size: 16px;
+            color: var(--mt-white);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .total-amount {
+            font-size: 20px;
+            color: var(--mt-white);
+            font-weight: 700;
+        }
+
+        .bottom-action {
+            padding: 16px;
+            background: var(--mt-white);
+            border-top: 1px solid var(--mt-gray-light);
+        }
+
+        .next-btn {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--mt-primary);
+            color: var(--mt-white);
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .next-btn img {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-frame">
+        <div class="device">
+            <div class="screen">
+                <div class="table-screen">
+                    <!-- Status Bar -->
+                    <div class="status-bar">
+                        <div class="status-bar-content">
+                            <div class="status-indicators">
+                                <div class="wifi-icon"></div>
+                                <div class="reception-icon"></div>
+                                <div class="battery-icon"></div>
+                            </div>
+                            <div class="time">12:30</div>
+                        </div>
+                    </div>
+
+                    <!-- Header -->
+                    <div class="header">
+                        <div class="header-content">
+                            <button class="back-btn" onclick="goBack()">
+                                <svg viewBox="0 0 20 20" fill="currentColor" style="width: 20px; height: 20px; color: var(--mt-primary);">
+                                    <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                            <h1>Итоговый заказ</h1>
+                            <div class="header-actions">
+                                <button class="expand-btn">
+                                    <svg viewBox="0 0 20 20" fill="currentColor" style="width: 20px; height: 20px; color: var(--mt-primary);">
+                                        <path d="M10 6L6 10L10 14L14 10L10 6Z"/>
+                                    </svg>
+                                </button>
+                                <button class="menu-btn">
+                                    <svg viewBox="0 0 20 20" fill="currentColor" style="width: 20px; height: 20px; color: var(--mt-primary);">
+                                        <path d="M10 2C5.58 2 2 5.58 2 10C2 14.42 5.58 18 10 18C14.42 18 18 14.42 18 10C18 5.58 14.42 2 10 2ZM10 16C6.69 16 4 13.31 4 10C4 6.69 6.69 4 10 4C13.31 4 16 6.69 16 10C16 13.31 13.31 16 10 16Z"/>
+                                        <circle cx="10" cy="10" r="2"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="header-next-btn">
+                            <button class="next-btn-header" onclick="saveOrder()">
+                                Сохранить
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Table Content -->
+                    <div class="table-container">
+                        <div class="table-header">
+                            <div class="table-header-row">
+                                <div class="header-cell">Товар</div>
+                                <div class="header-cell">Сумма</div>
+                            </div>
+                        </div>
+
+                        <div class="table-body">
+                            <!-- Мясная продукция -->
+                            <div class="category-section">
+                                <div class="category-header">
+                                    <span class="category-title">Мясная продукция</span>
+                                </div>
+                                
+                                <div class="table-row">
+                                    <div class="product-cell">
+                                        <div class="product-name">Азу говяжье охл<br>З/А П/Ф</div>
+                                    </div>
+                                    <div class="quantity-input-cell">536 169 ₽</div>
+                                </div>
+
+                                <div class="table-row">
+                                    <div class="product-cell">
+                                        <div class="product-name">Антрекот говяжий<br>(лоток) З/А шт 0,4 кг П/Ф</div>
+                                    </div>
+                                    <div class="quantity-input-cell">34 176 ₽</div>
+                                </div>
+
+                                <div class="table-row">
+                                    <div class="product-cell">
+                                        <div class="product-name">Антрекот говяжий<br>Б/П З/А П/Ф</div>
+                                    </div>
+                                    <div class="quantity-input-cell">0 ₽</div>
+                                </div>
+
+                                <div class="table-row">
+                                    <div class="product-cell">
+                                        <div class="product-name">Астория Фибр (Батон 1.175)<br>В/К колб</div>
+                                    </div>
+                                    <div class="quantity-input-cell">0 ₽</div>
+                                </div>
+
+                                <div class="table-row">
+                                    <div class="product-cell">
+                                        <div class="product-name">Астория Фибр З/А В/К<br>колб П12</div>
+                                    </div>
+                                    <div class="quantity-input-cell">90 368 ₽</div>
+                                </div>
+
+                                <div class="table-row">
+                                    <div class="product-cell">
+                                        <div class="product-name">Астория Фибр пак 4,8 З/А<br>В/К колб П12</div>
+                                    </div>
+                                    <div class="quantity-input-cell">0 ₽</div>
+                                </div>
+
+                                <div class="table-row">
+                                    <div class="product-cell">
+                                        <div class="product-name">Азу говяжье "Миарторг"<br>Калининград охл З/А П/Ф</div>
+                                    </div>
+                                    <div class="quantity-input-cell">566 790 ₽</div>
+                                </div>
+
+                                <div class="table-row">
+                                    <div class="product-cell">
+                                        <div class="product-name">Антрекот говяжий "Миарторг"<br>Калининград Б/П З/А П/Ф</div>
+                                    </div>
+                                    <div class="quantity-input-cell">29 700 ₽</div>
+                                </div>
+                            </div>
+
+                            <!-- Молочная продукция -->
+                            <div class="category-section">
+                                <div class="category-header">
+                                    <span class="category-title">Молочная продукция</span>
+                                </div>
+                                
+                                <div class="table-row">
+                                    <div class="product-cell">
+                                        <div class="product-name">Российское 3,2%</div>
+                                    </div>
+                                    <div class="quantity-input-cell">15 120 168 ₽</div>
+                                </div>
+
+                                <div class="table-row">
+                                    <div class="product-cell">
+                                        <div class="product-name">Российское 2%</div>
+                                    </div>
+                                    <div class="quantity-input-cell">13 835 ₽</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Summary Section -->
+                    <div class="summary-section">
+                        <div class="summary-title">Детализация заказа</div>
+                        <div class="summary-item">
+                            <div class="summary-label">Количество позиций:</div>
+                            <div class="summary-value">10</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">Общий вес:</div>
+                            <div class="summary-value">1 254 кг</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">Сумма без скидок:</div>
+                            <div class="summary-value">16 392 126 ₽</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">Скидки:</div>
+                            <div class="summary-value">-2 000 ₽</div>
+                        </div>
+                    </div>
+
+                    <!-- Total Section -->
+                    <div class="total-section">
+                        <div class="total-title">Итого к оплате</div>
+                        <div class="total-amount">16 390 126 ₽</div>
+                    </div>
+
+                    <!-- Bottom Action Button -->
+                    <div class="bottom-action">
+                        <button class="next-btn" onclick="confirmOrder()">
+                            <span>Подтвердить заказ</span>
+                            <svg viewBox="0 0 20 20" fill="currentColor" style="width: 20px; height: 20px;">
+                                <path d="M8 4L12 8L8 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Данные товаров с расчетами
+        const orderData = [
+            // Мясная продукция
+            { name: "Азу говяжье охл З/А П/Ф", price: 1713, quantity: 313, category: "Мясная продукция" },
+            { name: "Антрекот говяжий (лоток) З/А шт 0,4 кг П/Ф", price: 2848, quantity: 12, category: "Мясная продукция" },
+            { name: "Антрекот говяжий Б/П З/А П/Ф", price: 1777, quantity: 0, category: "Мясная продукция" },
+            { name: "Астория Фибр (Батон 1.175) В/К колб", price: 821, quantity: 0, category: "Мясная продукция" },
+            { name: "Астория Фибр З/А В/К колб П12", price: 2824, quantity: 32, category: "Мясная продукция" },
+            { name: "Астория Фибр пак 4,8 З/А В/К колб П12", price: 225, quantity: 0, category: "Мясная продукция" },
+            { name: "Азу говяжье \"Миарторг\" Калининград охл З/А П/Ф", price: 2699, quantity: 210, category: "Мясная продукция" },
+            { name: "Антрекот говяжий \"Миарторг\" Калининград Б/П З/А П/Ф", price: 300, quantity: 99, category: "Мясная продукция" },
+            // Молочная продукция
+            { name: "Российское 3,2%", price: 2848, quantity: 531, category: "Молочная продукция" },
+            { name: "Российское 2%", price: 2767, quantity: 5, category: "Молочная продукция" }
+        ];
+
+        function calculateTotal() {
+            let total = 0;
+            let totalWeight = 0;
+            let totalItems = 0;
+            
+            orderData.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                if (item.quantity > 0) {
+                    totalItems++;
+                    // Примерный расчет веса (в реальности должен быть из данных)
+                    totalWeight += item.quantity * 0.5; // 0.5 кг на единицу
+                }
+            });
+            
+            return {
+                total: total,
+                weight: Math.round(totalWeight),
+                items: totalItems
+            };
+        }
+
+        function goBack() {
+            window.location.href = 'table-screen.html';
+        }
+
+        function saveOrder() {
+            alert('Заказ сохранен');
+        }
+
+        function confirmOrder() {
+            const totals = calculateTotal();
+            alert(`Заказ подтвержден!\nСумма: ${totals.total.toLocaleString()} ₽\nПозиций: ${totals.items}\nВес: ${totals.weight} кг`);
+        }
+
+        // Обновляем данные при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            const totals = calculateTotal();
+            
+            // Обновляем итоговую сумму
+            document.querySelector('.total-amount').textContent = `${totals.total.toLocaleString()} ₽`;
+            
+            // Обновляем детализацию
+            document.querySelectorAll('.summary-item')[0].querySelector('.summary-value').textContent = totals.items;
+            document.querySelectorAll('.summary-item')[1].querySelector('.summary-value').textContent = `${totals.weight} кг`;
+            document.querySelectorAll('.summary-item')[2].querySelector('.summary-value').textContent = `${totals.total.toLocaleString()} ₽`;
+        });
+    </script>
+</body>
+</html>

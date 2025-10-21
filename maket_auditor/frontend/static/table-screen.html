@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таблица товаров - МТ 5</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+    <div class="app-frame">
+      <div class="device">
+        <div class="screen">
+        <div class="table-screen">
+            <!-- Status Bar -->
+            <div class="status-bar">
+                <div class="status-bar-content">
+                    <div class="status-indicators">
+                        <div class="wifi-icon"></div>
+                        <div class="reception-icon"></div>
+                        <div class="battery-icon"></div>
+                    </div>
+                    <div class="time">12:30</div>
+                </div>
+            </div>
+
+            <!-- Header -->
+            <div class="header">
+                <div class="header-content">
+                    <button class="back-btn" onclick="goBack()">
+                        <img src="images/close_icon.svg" alt="Назад">
+                    </button>
+                    <h1>Заказ</h1>
+                    <div class="header-actions">
+                        <button class="expand-btn">
+                            <img src="images/arrow_down_icon.svg" alt="Свернуть">
+                        </button>
+                        <button class="menu-btn">
+                            <img src="images/menu_icon.svg" alt="Меню">
+                        </button>
+                        <button class="search-btn">
+                            <img src="images/search_icon.svg" alt="Поиск">
+                        </button>
+                        <button class="filter-btn">
+                            <img src="images/filter_icon.svg" alt="Фильтр">
+                        </button>
+                    </div>
+                </div>
+                <div class="header-next-btn">
+                    <button class="next-btn-header" onclick="goToNext()">
+                        Далее
+                    </button>
+                </div>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="category-filter">
+                <div class="filter-switch">
+                    <div class="switch-bg">
+                        <span class="switch-text">Акци...</span>
+                        <span class="switch-badge">8</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table Content -->
+            <div class="table-container">
+                <div class="table-header">
+                    <div class="table-header-row">
+                        <div class="header-cell">Товары</div>
+                        <div class="header-cell">Остаток</div>
+                        <div class="header-cell">Цена</div>
+                        <div class="header-cell">Кол.</div>
+                        <div class="header-cell">После</div>
+                    </div>
+                </div>
+
+                <div class="table-body">
+                    <!-- Мясная продукция -->
+                    <div class="category-section">
+                        <div class="category-header">
+                            <span class="category-title">Мясная продукция</span>
+                        </div>
+                        
+                        <div class="table-row">
+                            <div class="product-cell">
+                                <div class="product-name">Азу говяжье охл<br>З/А П/Ф</div>
+                            </div>
+                            <div class="quantity-cell">30 шт</div>
+                            <div class="price-cell">1 713 ₽</div>
+                            <div class="quantity-input-cell">313 шт</div>
+                            <div class="action-cell">
+                                <button class="photo-btn">
+                                    <img src="images/photo_icon.svg" alt="Фото">
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="table-row">
+                            <div class="product-cell">
+                                <div class="product-name">Антрекот говяжий<br>(лоток) З/А шт 0,4 кг П/Ф</div>
+                            </div>
+                            <div class="quantity-cell">450 шт</div>
+                            <div class="price-cell">2 848 ₽</div>
+                            <div class="quantity-input-cell">12 шт</div>
+                            <div class="action-cell">
+                                <button class="photo-btn">
+                                    <img src="images/photo_icon.svg" alt="Фото">
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="table-row">
+                            <div class="product-cell">
+                                <div class="product-name">Антрекот говяжий<br>Б/П З/А П/Ф</div>
+                            </div>
+                            <div class="quantity-cell">455 шт</div>
+                            <div class="price-cell">1 777 ₽</div>
+                            <div class="quantity-input-cell">- шт</div>
+                            <div class="action-cell">
+                                <button class="photo-btn">
+                                    <img src="images/photo_icon.svg" alt="Фото">
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="table-row">
+                            <div class="product-cell">
+                                <div class="product-name">Астория Фибр (Батон 1.175)<br>В/К колб</div>
+                            </div>
+                            <div class="quantity-cell">- шт</div>
+                            <div class="price-cell">821 ₽</div>
+                            <div class="quantity-input-cell">- шт</div>
+                            <div class="action-cell">
+                                <button class="photo-btn">
+                                    <img src="images/photo_icon.svg" alt="Фото">
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="table-row">
+                            <div class="product-cell">
+                                <div class="product-name">Астория Фибр З/А В/К<br>колб П12</div>
+                            </div>
+                            <div class="quantity-cell">251 шт</div>
+                            <div class="price-cell">2 824 ₽</div>
+                            <div class="quantity-input-cell">32 шт</div>
+                            <div class="action-cell">
+                                <button class="photo-btn">
+                                    <img src="images/photo_icon.svg" alt="Фото">
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="table-row">
+                            <div class="product-cell">
+                                <div class="product-name">Астория Фибр пак 4,8 З/А<br>В/К колб П12</div>
+                            </div>
+                            <div class="quantity-cell">319 шт</div>
+                            <div class="price-cell">225,00 ₽</div>
+                            <div class="quantity-input-cell">- шт</div>
+                            <div class="action-cell">
+                                <button class="photo-btn">
+                                    <img src="images/photo_icon.svg" alt="Фото">
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="table-row">
+                            <div class="product-cell">
+                                <div class="product-name">Азу говяжье "Миарторг"<br>Калининград охл З/А П/Ф</div>
+                            </div>
+                            <div class="quantity-cell">210 шт</div>
+                            <div class="price-cell">2 699 ₽</div>
+                            <div class="quantity-input-cell">210 шт</div>
+                            <div class="action-cell">
+                                <button class="photo-btn">
+                                    <img src="images/photo_icon.svg" alt="Фото">
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="table-row">
+                            <div class="product-cell">
+                                <div class="product-name">Антрекот говяжий "Миарторг"<br>Калининград Б/П З/А П/Ф</div>
+                            </div>
+                            <div class="quantity-cell">210 шт</div>
+                            <div class="price-cell">300 ₽</div>
+                            <div class="quantity-input-cell">99 шт</div>
+                            <div class="action-cell">
+                                <button class="photo-btn">
+                                    <img src="images/photo_icon.svg" alt="Фото">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Молочная продукция -->
+                    <div class="category-section">
+                        <div class="category-header">
+                            <span class="category-title">Молочная продукция</span>
+                        </div>
+                        
+                        <div class="table-row">
+                            <div class="product-cell">
+                                <div class="product-name">Российское 3,2%</div>
+                            </div>
+                            <div class="quantity-cell">557 шт</div>
+                            <div class="price-cell">2 848 ₽</div>
+                            <div class="quantity-input-cell">531 шт</div>
+                            <div class="action-cell">
+                                <button class="photo-btn">
+                                    <img src="images/photo_icon.svg" alt="Фото">
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="table-row">
+                            <div class="product-cell">
+                                <div class="product-name">Российское 2%</div>
+                            </div>
+                            <div class="quantity-cell">341 шт</div>
+                            <div class="price-cell">2 767 ₽</div>
+                            <div class="quantity-input-cell">5 шт</div>
+                            <div class="action-cell">
+                                <button class="photo-btn">
+                                    <img src="images/photo_icon.svg" alt="Фото">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Summary -->
+            <div class="bottom-summary">
+                <div class="summary-content">
+                    <div class="summary-text">
+                        <span class="total-label">Итого</span>
+                        <span class="total-value">23 536,89 ₽ • 1 254 кг • 15 поз</span>
+                    </div>
+                    <div class="summary-icons">
+                        <div class="warning-icon"></div>
+                        <div class="success-icon"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Action Button -->
+            <div class="bottom-action">
+                <button class="next-btn" onclick="goToTTCard()">
+                    <span>Карточка ТТ</span>
+                    <img src="images/arrow_down_icon.svg" alt="Карточка ТТ">
+                </button>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+        function goBack() {
+            // Навигация назад к экрану заказа
+            window.location.href = 'order-screen.html';
+        }
+
+        function goToTTCard() {
+            // Навигация к карточке торговой точки
+            window.location.href = 'tt-card-screen.html';
+        }
+
+        function goToNext() {
+            // Навигация к следующему экрану
+            alert('Переход к следующему экрану');
+        }
+
+        // Обновляем дату на текущую
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentDate = new Date();
+            const dateString = currentDate.toLocaleDateString('ru-RU', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+            
+            // Если есть элемент с датой, обновляем его
+            const dateElements = document.querySelectorAll('.date-display');
+            dateElements.forEach(element => {
+                element.textContent = dateString;
+            });
+        });
+    </script>
+</body>
+</html>

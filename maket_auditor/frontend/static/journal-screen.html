@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Журнал - МТ 5</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        .journal-screen {
+            position: absolute;
+            inset: 0;
+            background-color: var(--mt-gray-lightest);
+            overflow: hidden;
+        }
+
+        .journal-header {
+            position: absolute;
+            top: var(--status-bar-height);
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            background-color: var(--mt-gray-lightest);
+            box-shadow: var(--shadow-md);
+            z-index: var(--z-sticky);
+        }
+
+        .journal-header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            padding: 0 var(--spacing-md);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .menu-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: var(--radius-sm);
+            transition: var(--transition-colors);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .menu-btn:hover {
+            background-color: var(--mt-gray-light);
+        }
+
+        .menu-btn img {
+            width: 18px;
+            height: 18px;
+        }
+
+        .journal-title {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--mt-gray-darker);
+            margin: 0;
+        }
+
+        .filter-btn,
+        .search-btn,
+        .calendar-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: var(--radius-sm);
+            transition: var(--transition-colors);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .filter-btn:hover,
+        .search-btn:hover,
+        .calendar-btn:hover {
+            background-color: var(--mt-gray-light);
+        }
+
+        .filter-btn img,
+        .search-btn img,
+        .calendar-btn img {
+            width: 18px;
+            height: 18px;
+        }
+
+        .journal-content {
+            position: absolute;
+            top: calc(var(--status-bar-height) + var(--header-height));
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow-y: auto;
+            background-color: var(--mt-gray-lightest);
+        }
+
+        .expandable-section {
+            background: var(--mt-gray-light);
+            border-bottom: 1px solid var(--mt-gray-light);
+        }
+
+        .expandable-header {
+            padding: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: background-color var(--transition-fast);
+        }
+
+        .expandable-header:hover {
+            background: var(--mt-gray);
+        }
+
+        .expandable-header__left {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .expandable-header__icon {
+            width: 16px;
+            height: 16px;
+            color: var(--mt-gray-darker);
+            transition: transform var(--transition-fast);
+        }
+
+        .expandable-header__icon.expanded {
+            transform: rotate(180deg);
+        }
+
+        .expandable-header__text {
+            font-size: var(--font-size-md);
+            font-weight: var(--font-weight-semibold);
+            color: var(--mt-gray-darker);
+        }
+
+        .date-separator {
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: var(--mt-gray-lightest);
+            color: var(--mt-gray-darker);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+        }
+
+        .order-card {
+            background: var(--mt-white);
+            margin: 0 var(--spacing-md) var(--spacing-md);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+
+        .order-card__header {
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--mt-gray-light);
+        }
+
+        .order-card__title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-bold);
+            color: var(--mt-gray-darker);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .order-card__address {
+            font-size: var(--font-size-sm);
+            color: var(--mt-gray-darker);
+            line-height: 1.4;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .order-card__address-line {
+            margin-bottom: 2px;
+        }
+
+        .order-card__actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--spacing-sm) var(--spacing-md);
+        }
+
+        .order-card__info {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .order-card__info-icon {
+            width: 16px;
+            height: 16px;
+            color: var(--mt-gray-darker);
+        }
+
+        .order-card__info-text {
+            font-size: var(--font-size-sm);
+            color: var(--mt-gray-darker);
+        }
+
+        .order-card__status {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .order-card__status-icon {
+            width: 16px;
+            height: 16px;
+            color: var(--mt-gray-darker);
+        }
+
+        .order-card__status-text {
+            font-size: var(--font-size-sm);
+            color: var(--mt-gray-darker);
+        }
+
+        .order-card__time {
+            font-size: var(--font-size-xs);
+            color: var(--mt-gray-darker);
+        }
+
+        .order-card__more {
+            width: 20px;
+            height: 20px;
+            background: none;
+            border: none;
+            color: var(--mt-gray-darker);
+            cursor: pointer;
+            font-size: var(--font-size-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .order-card__more:hover {
+            background: var(--mt-gray-light);
+            border-radius: var(--radius-sm);
+        }
+
+        .bottom-indicator {
+            height: 4px;
+            background: var(--mt-gray-darker);
+            margin: 0 var(--spacing-md) var(--spacing-xs);
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-frame">
+        <div class="device">
+            <div class="screen">
+                <div class="journal-screen">
+                    <!-- Status Bar -->
+                    <div class="status-bar">
+                        <div class="status-bar-content">
+                            <div class="status-indicators">
+                                <div class="wifi-icon"></div>
+                                <div class="reception-icon"></div>
+                                <div class="battery-icon"></div>
+                            </div>
+                            <div class="time">17:50</div>
+                        </div>
+                    </div>
+
+                    <!-- Header -->
+                    <div class="journal-header">
+                        <div class="journal-header-content">
+                            <div class="header-left">
+                                <button class="menu-btn" onclick="toggleMenu()">
+                                    <img src="images/menu_icon.svg" alt="Меню">
+                                </button>
+                            </div>
+                            <h1 class="journal-title">Журнал</h1>
+                            <div class="header-right">
+                                <button class="filter-btn" onclick="openFilter()">
+                                    <img src="images/filter_icon.svg" alt="Фильтр">
+                                </button>
+                                <button class="search-btn" onclick="openSearch()">
+                                    <img src="images/search_icon.svg" alt="Поиск">
+                                </button>
+                                <button class="calendar-btn" onclick="openCalendar()">
+                                    <img src="images/calendar_icon.svg" alt="Календарь">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="journal-content">
+                        <!-- Разворачиваемая секция -->
+                        <div class="expandable-section">
+                            <div class="expandable-header" onclick="toggleExpandable()">
+                                <div class="expandable-header__left">
+                                    <img src="images/arrow_down_icon.svg" alt="Развернуть" class="expandable-header__icon" id="expandIcon">
+                                    <span class="expandable-header__text">1006002 (Рощин Игнат)</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Разделитель даты -->
+                            <div class="date-separator">сегодня</div>
+                            
+                        <!-- Карточка заказа -->
+                        <div class="order-card" onclick="goToOrderPreview()">
+                            <div class="order-card__header">
+                                <div class="order-card__title">Заказ</div>
+                                <div class="order-card__address">
+                                    <div class="order-card__address-line">0060000000008105 Деденевское ПО</div>
+                                    <div class="order-card__address-line">Россия , Московская обл, Дмитровский</div>
+                                    <div class="order-card__address-line">р-н, Деденево рп, Кооперативная ул,</div>
+                                    <div class="order-card__address-line">Дом 6 ,СКЛАД</div>
+                                </div>
+                            </div>
+                            
+                            <div class="order-card__actions">
+                                <div class="order-card__info">
+                                    <span class="order-card__info-icon">👤</span>
+                                    <span class="order-card__info-text">1006002 (Рощин Игнат)</span>
+                                </div>
+                                <button class="order-card__more" onclick="event.stopPropagation(); showMoreOptions()">⋮</button>
+                            </div>
+                            
+                            <div class="order-card__actions">
+                                <div class="order-card__status">
+                                    <span class="order-card__status-icon">📄</span>
+                                    <span class="order-card__status-text">Заказ аудитора</span>
+                                </div>
+                                <div class="order-card__time">11:52</div>
+                            </div>
+                        </div>
+                        </div>
+                        
+                        <!-- Дополнительные записи -->
+                        <div class="date-separator">вчера</div>
+                        
+                        <div class="order-card">
+                            <div class="order-card__header">
+                                <div class="order-card__title">Заказ</div>
+                                <div class="order-card__address">
+                                    <div class="order-card__address-line">0060000000008106 Торговый центр</div>
+                                    <div class="order-card__address-line">Россия , Московская обл, Москва</div>
+                                    <div class="order-card__address-line">ул. Тверская, д. 15</div>
+                                </div>
+                            </div>
+                            
+                            <div class="order-card__actions">
+                                <div class="order-card__info">
+                                    <span class="order-card__info-icon">👤</span>
+                                    <span class="order-card__info-text">1006003 (Петров Иван)</span>
+                                </div>
+                                <button class="order-card__more">⋮</button>
+                            </div>
+                            
+                            <div class="order-card__actions">
+                                <div class="order-card__status">
+                                    <span class="order-card__status-icon">✅</span>
+                                    <span class="order-card__status-text">Выполнен</span>
+                                </div>
+                                <div class="order-card__time">14:30</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Индикатор снизу -->
+                    <div class="bottom-indicator"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            // Открытие бокового меню
+            alert('Открытие бокового меню');
+        }
+        
+        function openFilter() {
+            // Открытие фильтров
+            alert('Открытие фильтров');
+        }
+        
+        function openSearch() {
+            // Открытие поиска
+            alert('Открытие поиска');
+        }
+        
+        function openCalendar() {
+            // Открытие календаря
+            alert('Открытие календаря');
+        }
+        
+        function toggleExpandable() {
+            const icon = document.getElementById('expandIcon');
+            const isExpanded = icon.classList.contains('expanded');
+            
+            if (isExpanded) {
+                icon.classList.remove('expanded');
+            } else {
+                icon.classList.add('expanded');
+            }
+        }
+        
+        function goToOrderPreview() {
+            // Навигация к просмотру заказа
+            window.location.href = 'order-preview-screen.html';
+        }
+        
+        function showMoreOptions() {
+            // Показать дополнительные опции
+            alert('Дополнительные действия для заказа');
+        }
+        
+        // Обработка клика по кнопке "еще" в карточке заказа
+        document.addEventListener('DOMContentLoaded', function() {
+            const moreButtons = document.querySelectorAll('.order-card__more');
+            moreButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    alert('Дополнительные действия для заказа');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

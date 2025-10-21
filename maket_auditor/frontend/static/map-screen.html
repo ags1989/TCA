@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STMobile - Карта</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        .app-frame {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        
+        .device {
+            width: 375px;
+            height: 812px;
+            background-color: var(--color-background);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-large);
+            position: relative;
+        }
+        
+        .map-screen {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: #f8f9fa;
+        }
+        
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px 8px;
+            background: white;
+            color: #000;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .status-bar__time {
+            font-weight: 600;
+        }
+        
+        .status-bar__indicators {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .status-bar__wifi,
+        .status-bar__signal,
+        .status-bar__battery {
+            width: 16px;
+            height: 12px;
+        }
+        
+        .map-header {
+            background: white;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .map-header__back {
+            width: 24px;
+            height: 24px;
+            background: none;
+            border: none;
+            color: var(--color-text-primary);
+            cursor: pointer;
+            font-size: 18px;
+        }
+        
+        .map-header__title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+        
+        .map-header__menu {
+            width: 24px;
+            height: 24px;
+            background: none;
+            border: none;
+            color: var(--color-text-primary);
+            cursor: pointer;
+            font-size: 18px;
+        }
+        
+        .map-content {
+            flex: 1;
+            position: relative;
+            background: #e8f4f8;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .map-container {
+            flex: 1;
+            position: relative;
+            background: #e8f4f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #e8f4f8 0%, #d1e7dd 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            text-align: center;
+            padding: 40px;
+            position: relative;
+        }
+        
+        .map-roads {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(90deg, #ccc 1px, transparent 1px),
+                linear-gradient(0deg, #ccc 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.3;
+        }
+        
+        .location-marker {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background: #ff4444;
+            border: 3px solid white;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+        
+        .location-marker::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 12px solid #ff4444;
+        }
+        
+        .map-controls {
+            position: absolute;
+            right: 16px;
+            top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .map-control-btn {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: none;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: all 0.2s ease;
+        }
+        
+        .map-control-btn:hover {
+            background: #f5f5f5;
+            transform: scale(1.05);
+        }
+        
+        .map-control-btn__icon {
+            width: 18px;
+            height: 18px;
+            color: #333;
+        }
+        
+        .location-info {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .location-info__name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: 4px;
+        }
+        
+        .location-info__address {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            margin-bottom: 8px;
+        }
+        
+        .location-info__status {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 12px;
+        }
+        
+        .bottom-panel {
+            background: white;
+            padding: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .bottom-panel__actions {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .bottom-panel__btn {
+            flex: 1;
+            height: 48px;
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            border-radius: 24px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .bottom-panel__btn:hover {
+            background: var(--color-primary-dark);
+            transform: translateY(-1px);
+        }
+        
+        .bottom-panel__btn--secondary {
+            background: #f5f5f5;
+            color: var(--color-text-primary);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .bottom-panel__btn--secondary:hover {
+            background: #e8e8e8;
+        }
+        
+        .bottom-panel__btn__icon {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .search-bar {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 80px;
+            background: white;
+            border-radius: 25px;
+            padding: 12px 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .search-bar__input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .search-bar__input::placeholder {
+            color: #999;
+        }
+        
+        .search-bar__icon {
+            width: 16px;
+            height: 16px;
+            color: #999;
+        }
+        
+        .map-layers {
+            position: absolute;
+            top: 80px;
+            right: 16px;
+            background: white;
+            border-radius: 8px;
+            padding: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            display: none;
+        }
+        
+        .map-layers.show {
+            display: block;
+        }
+        
+        .layer-item {
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #333;
+            transition: background 0.2s ease;
+        }
+        
+        .layer-item:hover {
+            background: #f5f5f5;
+        }
+        
+        .layer-item.active {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-frame">
+        <div class="device">
+            <div class="map-screen">
+                <!-- Статус бар -->
+                <div class="status-bar">
+                    <div class="status-bar__time">12:30</div>
+                    <div class="status-bar__indicators">
+                        <div class="status-bar__wifi">📶</div>
+                        <div class="status-bar__signal">📶</div>
+                        <div class="status-bar__battery">🔋</div>
+                    </div>
+                </div>
+                
+                <!-- Заголовок карты -->
+                <div class="map-header">
+                    <button class="map-header__back" onclick="goBack()">←</button>
+                    <h1 class="map-header__title">Карта</h1>
+                    <button class="map-header__menu">⋮</button>
+                </div>
+                
+                <!-- Основной контент карты -->
+                <div class="map-content">
+                    <!-- Поисковая строка -->
+                    <div class="search-bar">
+                        <img src="images/search_icon.svg" alt="Поиск" class="search-bar__icon">
+                        <input type="text" class="search-bar__input" placeholder="Поиск адреса или места">
+                    </div>
+                    
+                    <!-- Контейнер карты -->
+                    <div class="map-container">
+                        <div class="map-placeholder">
+                            <div class="map-roads"></div>
+                            <div class="location-marker"></div>
+                        </div>
+                        
+                        <!-- Слои карты -->
+                        <div class="map-layers" id="mapLayers">
+                            <div class="layer-item active">Стандартная</div>
+                            <div class="layer-item">Спутник</div>
+                            <div class="layer-item">Гибрид</div>
+                            <div class="layer-item">Трафик</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Элементы управления картой -->
+                    <div class="map-controls">
+                        <button class="map-control-btn" title="Мой местоположение" onclick="findMyLocation()">
+                            <img src="images/map_icon.svg" alt="Местоположение" class="map-control-btn__icon">
+                        </button>
+                        <button class="map-control-btn" title="Масштаб +" onclick="zoomIn()">
+                            <span class="map-control-btn__icon">+</span>
+                        </button>
+                        <button class="map-control-btn" title="Масштаб -" onclick="zoomOut()">
+                            <span class="map-control-btn__icon">-</span>
+                        </button>
+                        <button class="map-control-btn" title="Слои" onclick="toggleLayers()">
+                            <span class="map-control-btn__icon">≡</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Информация о местоположении -->
+                    <div class="location-info">
+                        <div class="location-info__name">Мега Сити</div>
+                        <div class="location-info__address">г. Бишкек, Орто-Сайский р-к, 122К, центральный проход</div>
+                        <div class="location-info__status">Активная</div>
+                    </div>
+                </div>
+                
+                <!-- Нижняя панель -->
+                <div class="bottom-panel">
+                    <div class="bottom-panel__actions">
+                        <button class="bottom-panel__btn" onclick="startNavigation()">
+                            <img src="images/map_icon.svg" alt="Навигация" class="bottom-panel__btn__icon">
+                            Навигатор
+                        </button>
+                        <button class="bottom-panel__btn bottom-panel__btn--secondary" onclick="openLocationDetails()">
+                            <span class="bottom-panel__btn__icon">ℹ️</span>
+                            Подробнее
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            // Навигация назад к карточке ТТ
+            window.location.href = 'tt-card-screen.html';
+        }
+        
+        function startNavigation() {
+            // Запуск навигации
+            alert('Запуск навигации к торговой точке');
+        }
+        
+        function openLocationDetails() {
+            // Открытие детальной информации о местоположении
+            window.location.href = 'tt-card-screen.html';
+        }
+        
+        function findMyLocation() {
+            // Определение текущего местоположения
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    alert('Местоположение определено: ' + position.coords.latitude + ', ' + position.coords.longitude);
+                });
+            } else {
+                alert('Геолокация не поддерживается');
+            }
+        }
+        
+        function zoomIn() {
+            // Увеличение масштаба
+            console.log('Увеличение масштаба');
+        }
+        
+        function zoomOut() {
+            // Уменьшение масштаба
+            console.log('Уменьшение масштаба');
+        }
+        
+        function toggleLayers() {
+            // Переключение слоев карты
+            const layers = document.getElementById('mapLayers');
+            layers.classList.toggle('show');
+        }
+        
+        // Закрытие слоев при клике вне их
+        document.addEventListener('click', function(event) {
+            const layers = document.getElementById('mapLayers');
+            const layersBtn = event.target.closest('.map-control-btn');
+            
+            if (!layers.contains(event.target) && !layersBtn) {
+                layers.classList.remove('show');
+            }
+        });
+        
+        // Обработка выбора слоя
+        document.addEventListener('DOMContentLoaded', function() {
+            const layerItems = document.querySelectorAll('.layer-item');
+            layerItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    layerItems.forEach(layer => layer.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

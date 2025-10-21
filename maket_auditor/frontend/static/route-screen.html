@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Маршрут - МТ 5</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+    <div class="app-frame">
+      <div class="device">
+        <div class="screen">
+    <!-- Status Bar -->
+    <div class="status-bar">
+        <div class="status-bar-content">
+            <div class="status-indicators">
+                <div class="wifi-icon"></div>
+                <div class="reception-icon"></div>
+                <div class="battery-icon"></div>
+            </div>
+            <div class="time">12:30</div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <button class="close-btn">
+                <img src="images/close_icon.svg" alt="Закрыть">
+            </button>
+            <button class="workday-end-btn">
+                <img src="images/workday_end_icon.svg" alt="Завершить рабочий день">
+            </button>
+            <div class="header-title">Маршрут</div>
+            <button class="arrow-down-btn">
+                <img src="images/arrow_down_icon.svg" alt="Развернуть">
+            </button>
+            <button class="menu-btn">
+                <img src="images/menu_icon.svg" alt="Меню">
+            </button>
+            <button class="filter-btn">
+                <img src="images/filter_icon.svg" alt="Фильтр">
+            </button>
+            <button class="search-btn">
+                <img src="images/search_icon.svg" alt="Поиск">
+            </button>
+        </div>
+    </div>
+
+    <!-- Route Info -->
+    <div class="route-info">
+        <div class="route-header">
+            <h1>1024006 (Синицышевский Александр)</h1>
+            <p>21.03.2016 (сегодня)</p>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+        <div class="view-switch">
+            <button class="switch-btn active">Список</button>
+            <button class="switch-btn">Карта</button>
+        </div>
+        <div class="operations-btn">
+            <span>Операции на маршруте</span>
+            <span class="operations-count">8</span>
+        </div>
+        <div class="notifications-btn">
+            <img src="images/bell_icon.svg" alt="Уведомления">
+            <span class="notification-badge">3</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Left Panel - Route List -->
+        <div class="route-panel">
+            <div class="route-list">
+                <div class="route-item active">
+                    <div class="route-time">Начало работы – 10:41</div>
+                    <div class="route-duration">10:41 – 11:17 (36 мин)</div>
+                    <div class="route-status">
+                        <div class="status-dot completed"></div>
+                    </div>
+                </div>
+                
+                <div class="route-item">
+                    <div class="route-time">Доп. визит – 11:34 – 12:02</div>
+                    <div class="route-duration">12:19 – ...</div>
+                    <div class="route-status">
+                        <div class="status-dot in-progress"></div>
+                    </div>
+                </div>
+
+                <div class="route-location">
+                    <div class="location-name">Алюнова Г.Ф. (ИП)</div>
+                    <div class="location-address">г. Москва, ул. Короленко,<br>д. 7, кор. 1</div>
+                    <div class="route-status">
+                        <div class="status-dot completed"></div>
+                    </div>
+                </div>
+
+                <div class="route-location">
+                    <div class="location-name">Аляева О.М. (ООО)</div>
+                    <div class="location-address">г. Москва, ул. Керченская,<br>д. 22, строение 2</div>
+                    <div class="route-status">
+                        <div class="status-dot completed"></div>
+                    </div>
+                </div>
+
+                <div class="route-location">
+                    <div class="location-name">Аматус (ЗАО)</div>
+                    <div class="location-address">г. Москва, ул. Академика<br>Комарова, д. 3а</div>
+                    <div class="route-status">
+                        <div class="status-dot pending"></div>
+                    </div>
+                </div>
+
+                <div class="route-location">
+                    <div class="location-name">ИП Назарян Э.К.</div>
+                    <div class="location-address">Железнодорожная ул, Янтарный пос., 1 АЗС Балт Неф,</div>
+                    <div class="route-status">
+                        <div class="status-dot pending"></div>
+                    </div>
+                </div>
+
+                <div class="route-location">
+                    <div class="location-name">ИП Семенов В.О.</div>
+                    <div class="location-address">ул. Черняховского /Центральный рынок, склад 38/</div>
+                    <div class="route-status">
+                        <div class="status-dot pending"></div>
+                    </div>
+                </div>
+
+                <div class="route-location">
+                    <div class="location-name">ООО Терра</div>
+                    <div class="location-address">Красноармейская, 11/обед с 15-00 до, Калининград г,</div>
+                    <div class="route-status">
+                        <div class="status-dot pending"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel - Actions -->
+        <div class="actions-panel">
+            <div class="panel-header">
+                <h2>Задачи в ТТ</h2>
+                <div class="panel-tabs">
+                    <button class="tab-btn active">Информация</button>
+                    <button class="tab-btn">Начать визит</button>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <div class="action-group">
+                    <button class="action-btn">
+                        <div class="action-icon">
+                            <img src="images/notifications_icon.svg" alt="Напоминания">
+                        </div>
+                        <span>Напоминания</span>
+                        <span class="action-badge">1</span>
+                    </button>
+                </div>
+
+                <div class="action-group">
+                    <button class="action-btn">
+                        <div class="action-icon">
+                            <img src="images/comment_icon.svg" alt="Комментарии">
+                        </div>
+                        <span>Комментарии</span>
+                    </button>
+                </div>
+
+                <div class="action-group">
+                    <button class="action-btn">
+                        <div class="action-icon">
+                            <img src="images/order_icon.svg" alt="Заказ">
+                        </div>
+                        <span>Заказ</span>
+                    </button>
+                </div>
+
+                <div class="action-group">
+                    <button class="action-btn">
+                        <div class="action-icon">
+                            <img src="images/promo_icon.svg" alt="Мерчандайзинг">
+                        </div>
+                        <span>Мерчандайзинг</span>
+                    </button>
+                </div>
+
+                <div class="action-group">
+                    <button class="action-btn">
+                        <div class="action-icon">
+                            <img src="images/photo_icon.svg" alt="Фотоотчет">
+                        </div>
+                        <span>Фотоотчет</span>
+                    </button>
+                </div>
+
+                <div class="action-group">
+                    <button class="action-btn">
+                        <div class="action-icon">
+                            <img src="images/map_icon.svg" alt="Карта">
+                        </div>
+                        <span>Карта</span>
+                        <span class="distance">67 м</span>
+                    </button>
+                </div>
+
+                <div class="action-group">
+                    <button class="action-btn">
+                        <div class="action-icon">
+                            <img src="images/marketing_icon.svg" alt="Маркетинговые материалы">
+                        </div>
+                        <span>Маркетинговые материалы</span>
+                    </button>
+                </div>
+
+                <div class="action-group">
+                    <button class="action-btn">
+                        <div class="action-icon">
+                            <img src="images/info_icon.svg" alt="Информация">
+                        </div>
+                    </button>
+                </div>
+
+                <div class="action-group">
+                    <button class="action-btn">
+                        <div class="action-icon">
+                            <img src="images/visit_end_icon.svg" alt="Закончить визит">
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="tt-card">
+                <h3>Карточка ТТ</h3>
+                <p>Переплата: 2 340 ₽</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Tabs -->
+    <div class="bottom-tabs">
+        <div class="tab-group">
+            <button class="tab-btn">Территория</button>
+            <button class="tab-btn active">Маршрут</button>
+        </div>
+        <div class="tab-group">
+            <button class="tab-btn">Журнал</button>
+            <button class="tab-btn">Отчеты</button>
+            <button class="tab-btn active">Визит</button>
+        </div>
+    </div>
+
+    <!-- Route Status Bar -->
+    <div class="route-status-bar">
+        <div class="status-content">
+            <div class="status-icons">
+                <img src="images/route_status_bar.svg" alt="Статус маршрута">
+            </div>
+            <div class="status-text">
+                <span>Визиты</span>
+                <span>1 из 8 (+1)</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Добавляем интерактивность
+        document.addEventListener('DOMContentLoaded', function() {
+            // Переключение между списком и картой
+            const viewSwitch = document.querySelector('.view-switch');
+            const switchBtns = viewSwitch.querySelectorAll('.switch-btn');
+            
+            switchBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    switchBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Переключение табов
+            const tabGroups = document.querySelectorAll('.tab-group');
+            tabGroups.forEach(group => {
+                const tabs = group.querySelectorAll('.tab-btn');
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', function() {
+                        tabs.forEach(t => t.classList.remove('active'));
+                        this.classList.add('active');
+                    });
+                });
+            });
+
+            // Клик по элементам маршрута
+            const routeItems = document.querySelectorAll('.route-item, .route-location');
+            routeItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    routeItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Клик по кнопкам действий
+            const actionBtns = document.querySelectorAll('.action-btn');
+            actionBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Здесь можно добавить логику для каждого действия
+                    console.log('Action clicked:', this.querySelector('span').textContent);
+                });
+            });
+
+            // Навигация на экран Заказ (таблица товаров)
+            const orderBtn = Array.from(actionBtns).find(b => b.querySelector('span') && b.querySelector('span').textContent.trim() === 'Заказ');
+            if (orderBtn) {
+              orderBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'table-screen.html';
+              });
+            }
+
+            // Кнопки управления
+            const closeBtn = document.querySelector('.close-btn');
+            const workdayEndBtn = document.querySelector('.workday-end-btn');
+            const menuBtn = document.querySelector('.menu-btn');
+            const filterBtn = document.querySelector('.filter-btn');
+            const searchBtn = document.querySelector('.search-btn');
+
+            closeBtn.addEventListener('click', () => console.log('Close clicked'));
+            workdayEndBtn.addEventListener('click', () => console.log('Workday end clicked'));
+            menuBtn.addEventListener('click', () => console.log('Menu clicked'));
+            filterBtn.addEventListener('click', () => console.log('Filter clicked'));
+            searchBtn.addEventListener('click', () => console.log('Search clicked'));
+        });
+    </script>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

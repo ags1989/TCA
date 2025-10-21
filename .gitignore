@@ -1,0 +1,85 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+*.log
+logs/
+log/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Project specific
+DELETE/
+*.tmp
+*.temp
+checklist_debug.log
+service_status.log
+
+# Test files
+test_*.py
+check_*.py
+debug_*.py
+get_*.py
+
+# Documentation (optional - можно оставить основные)
+CHANGE_CHAIN_FIX_REPORT.md
+CONFLUENCE_CONNECTION_REPORT.md
+FINAL_FIX_REPORT.md
+IMPLEMENTATION_SUMMARY.md
+LOGIC_ANALYSIS_REPORT.md
+LOGIC_FIXES_PROPOSAL.md
+OPTIMIZATION_NOTES.md
+PERFORMANCE_ANALYSIS_REPORT.md
+PERFORMANCE_OPTIMIZATION_SUMMARY.md
+PROJECT_AUDIT_REPORT.md
+QUICK_START.md
+README_TFS.md
+
